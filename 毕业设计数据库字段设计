@@ -1,0 +1,71 @@
+//管理员
+Admin:
+{
+    "id":String,
+    "name":String,
+    "pwd": String
+}
+//用户
+Users:
+{
+    "userId":Number,
+    "userName":String,
+    "userPwd":String,
+    "userAvatar":String,
+    "userSign":String,
+    "userEmail":String,
+    "userTel":Number,
+    "userRealName":String,
+    "userAddress":String
+}
+//新闻
+News:
+{
+    "newsId":Number,
+    "newsTitle":String,
+    "newsContent":String,
+    "newsData":String,
+    "categoryList":[
+        {
+            "categoryId":Number,
+            "categoryName":String,
+            "categoryDes":String
+        }
+    ],
+    author:String,
+    newsOrigin:String,
+    commentList:[
+        {
+             "commentId":Number,
+             "commentInfo":String,
+             "commentDate":String,
+             "commentUser":{
+                  "userId":Number,
+                  "userName":String,
+             },
+        }
+    ]
+
+}
+//新闻类别表
+Category:
+{
+     "categoryId":Number,
+     "categoryName":String,
+     "categoryDes":String
+}
+//新闻评论表
+Comments:
+{
+    "commentId":Number,
+    "commentInfo":String,
+    "commentDate":String,
+    "commentUser":{
+         "userId":Number,
+         "userName":String,
+    },
+    "newsList":{
+        "newsId":Number,
+        "newsTitle":String,
+    }
+}
