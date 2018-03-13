@@ -9,6 +9,15 @@ const UserSchema = new Schema({
     "userEmail":String,
     "userTel":Number,
     "userRealName":String,
-    "userAddress":String
+    "userAddress":String,
+    "userAge":String,
+    "createdAt": {
+        type: Date,
+        default: Date.now
+    },
+    "updatedAt": {
+        type: Date,
+        default: Date.now
+    }
 });
 module.exports = mongoose.model('user',UserSchema);

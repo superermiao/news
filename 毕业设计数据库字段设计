@@ -16,7 +16,8 @@ Users:
     "userEmail":String,
     "userTel":Number,
     "userRealName":String,
-    "userAddress":String
+    "userAddress":String,
+    “userAge”:String
 }
 //新闻
 News:
@@ -24,48 +25,25 @@ News:
     "newsId":Number,
     "newsTitle":String,
     "newsContent":String,
-    "newsData":String,
-    "categoryList":[
-        {
-            "categoryId":Number,
-            "categoryName":String,
-            "categoryDes":String
-        }
-    ],
-    author:String,
-    newsOrigin:String,
-    commentList:[
-        {
-             "commentId":Number,
-             "commentInfo":String,
-             "commentDate":String,
-             "commentUser":{
-                  "userId":Number,
-                  "userName":String,
-             },
-        }
-    ]
-
+    "author":String,
+    "newsOrigin":String,
+    "keywords":String,
+    "createTime":Date,
+    "categoryId":Number
 }
 //新闻类别表
 Category:
 {
      "categoryId":Number,
      "categoryName":String,
-     "categoryDes":String
+     "categoryType":String
 }
 //新闻评论表
 Comments:
 {
     "commentId":Number,
-    "commentInfo":String,
-    "commentDate":String,
-    "commentUser":{
-         "userId":Number,
-         "userName":String,
-    },
-    "newsList":{
-        "newsId":Number,
-        "newsTitle":String,
-    }
+    "commentContent":String,
+    "createTime":Date,
+    "userId":Number,
+    "newsId":Number,
 }
