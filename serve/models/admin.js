@@ -10,11 +10,13 @@
 // };
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const UserSchema = new Schema({
+const AdminSchema = new Schema({
    "name":{
        type: String,
        required: true
    },
-   "pwd": String
+   "pwd": String,
+    "id": String
 });
-module.exports = mongoose.model('admin',UserSchema);
+const AdminModel = mongoose.model('admin', AdminSchema);
+module.exports = AdminModel;
