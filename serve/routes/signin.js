@@ -26,9 +26,10 @@ router.post('/', checkNotLogin, function (req, res, next) {
                 // res.cookie("id",doc.id,{
                 //     path:'/',
                 // });
-                req.session.user = doc;
+                //req.session.user = doc;
+                //console.log(req.session.user);
                 req.flash('success','登陆成功');
-                // req.redirect('/');
+                //req.redirect('/posts');
                 res.json({
                     status:'0',
                     msg:'',

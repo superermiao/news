@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const category = require('./categories');
 const NewSchema = new Schema({
     "newsId":Number,
     "newsTitle":String,
@@ -7,7 +8,7 @@ const NewSchema = new Schema({
     "author":String,
     "newsOrigin":String,
     "keywords":String,
-    "createTime":Date,
-    "categoryId":Number
+    "createTime":Date.now(),
+    "categoryId":[{type:Schema.Types.ObjectID, ref: 'category'}]
 });
 module.exports = mongoose.model('new',NewSchema);

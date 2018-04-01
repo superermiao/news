@@ -14,27 +14,27 @@
         <label>密码</label>
         <input placeholder="密码" type="password" name="pwd" id="pwd">
     </div>
-    <input type="submit" class="ui button fluid" value="登录">
+    <input type="submit" class="ui button fluid" value="登录" id="login">
 </form>
 <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
 <script type="text/javascript">
     $(function(){
-        $("#login0").click(function(){
+        $("#login").click(function(){
             var username = $("#name").val();
             var password = $("#pwd").val();
             var data = {"name":username,"pwd":password};
             $.ajax({
-                url:'/login',
+                url:'/signin',
                 type:'post',
                 data: data,
                 success: function(data,status){
-                    if(status == 'success'){
-                        location.href = 'home';
+                    if(status == '0'){
+                        location.href = 'posts';
                     }
                 },
                 error: function(data,status){
-                    if(status == 'error'){
-                        location.href = 'login';
+                    if(status == '1'){
+                        location.href = 'signin';
                     }
                 }
             });

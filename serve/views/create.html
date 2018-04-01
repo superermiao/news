@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>创建文章</title>
+</head>
+<body>
+ <form method="post">
+     <div class="field required">
+         <label>标题</label>
+         <input placeholder="标题" type="text" name="title" id="title">
+     </div>
+     <div class="field required">
+         <label>内容</label>
+         <input placeholder="内容" type="text" name="content" id="content">
+     </div>
+     <div class="field required">
+         <label>作者</label>
+         <input placeholder="作者" type="text" name="title" id="author">
+     </div>
+     <div class="field required">
+         <label>来源</label>
+         <input placeholder="标题" type="text" name="title" id="newsOrigin">
+     </div>
+     <div class="six field">
+         <label>新闻分类</label>
+         <select class="ui fluid search dropdown" name="video-classify">
+             <!--<option></option>-->
+             <!--<option value="">影视分类</option>-->
+             <!--<option value="电影">电影</option>-->
+             <!--<option value="电视剧">电视剧</option>-->
+             <!--<option value="综艺">综艺</option>-->
+             <!--<option value="动漫">动漫</option>-->
+             <!--<option value="纪录片">纪录片</option>-->
+             <!--<option value="其他">其他</option>-->
+             <!--<option selected value="<%= video.classify %>"><%= video.classify %></option>-->
+         </select>
+     </div>
+ </form>
+</body>
+</html>

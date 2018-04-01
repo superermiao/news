@@ -1,8 +1,9 @@
 var chalk = require('chalk');
-var config = require('config-lite');
 var mongoose = require('mongoose');
+const config = require('config-lite')(__dirname);
+// const url = require('../config/default');
 //连接相应数据库
-mongoose.connect(config.url, {useMongoClient:true});
+mongoose.connect(config.mongodb);
 const db = mongoose.connection;
 // 链接错误
 db.on('error', function(error) {
@@ -17,7 +18,7 @@ db.on('close', function() {
     console.log(
         chalk.red('数据库断开，重新连接数据库')
     );
-    mongoose.connect(config.url, {server:{auto_reconnect:true}});
+    mongoose.connect(config.mongodb, {server:{auto_reconnect:true}});
 });
 
 module.exports = db;
