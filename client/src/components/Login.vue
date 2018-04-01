@@ -2,25 +2,39 @@
   <el-form  class="demo-ruleForm login-container" label-position="left">
     <h3 class="title">登录</h3>
     <el-form-item prop="account">
-      <el-input type="text" placeholder="账号"></el-input>
+      <el-input type="text" placeholder="账号" v-model="name" name="name"></el-input>
     </el-form-item>
     <el-form-item prop="checkPass">
-      <el-input type="password" auto-complete="off" placeholder="密码"></el-input>
+      <el-input type="password" auto-complete="off" placeholder="密码" v-model="password" name="password"></el-input>
     </el-form-item>
     <el-checkbox checked class="remember">记住密码</el-checkbox>
     <el-form-item style="width:100%;">
-      <el-button type="primary" style="width:100%;">登录</el-button>
+      <el-button type="primary" style="width:100%;" @click="login">登录</el-button>
     </el-form-item>
   </el-form>
 </template>
 
 <script>
     export default {
-        name: 'Login',
+        name: 'login',
         data() {
-            return {}
+            return {
+              name:'admin',
+              password: 'admin'
+            }
         },
-        methods: {},
+        methods: {
+          login: ()=>{
+            axios.post("/api/signin",{
+                name: this.name,
+                pwd: this.password
+              }).then(res=>{
+              this.message = res.data;
+            }).catch((err) => {
+              console.log(err);
+            })
+          }
+        },
     }
 </script>
 
