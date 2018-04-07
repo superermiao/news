@@ -11,9 +11,9 @@ router.get('/', checkNotLogin, function (req, res, next) {
 
 // POST /signin 用户登录
 router.post('/', checkNotLogin, function (req, res, next) {
-    var params = {
-        name: req.body.name,
-        pwd: req.body.pwd
+        var params = {
+            name: req.body.name,
+            pwd: req.body.pwd
     };
     AdminModel.findOne(params,function (err,doc) {
         if(err) {

@@ -1,0 +1,51 @@
+<nz-layout>
+  <ul nz-menu [nzMode]="'horizontal'">
+    <li class="type-header" nz-menu-data>分类管理</li>
+  </ul>
+
+  <nz-header>
+    <span class="add-type-btn">
+      <button nz-button [nzType]="'primary'"  routerLink="/categories/add-type">
+        <i class="anticon anticon-plus"></i>新增分类
+      </button>
+    </span>
+
+    <nz-popconfirm [nzTitle]="'确定删除这个分类吗？'">
+      <button nz-popconfirm nz-button [nzType]="'default'">
+        <i class="anticon anticon-delete"></i> 删除
+      </button>
+    </nz-popconfirm>
+
+    <span class="goback-btn" routerLink="/shops/goods">
+      <button nz-button [nzType]="'default'">
+        <i class="anticon anticon-rollback"></i> 返回
+      </button>
+    </span>
+  </nz-header>
+
+  <nz-content>
+    <nz-table #nzTable [nzCustomNoResult]="true">
+      <div noResult class="table-no-result">
+        <img src="http://img.zhichiwangluo.com/zcimgdir/album/file_5a324cdbb08af.jpg" alt="">
+        <p>无相关数据</p>
+      </div>
+      <thead nz-thead>
+      <tr>
+        <th nz-th nzCheckbox>
+          <label nz-checkbox  [nzIndeterminate]="indeterminate" ></label>
+        </th>
+        <th nz-th>分类名称</th>
+        <th nz-th>分类id</th>
+        <th nz-th>文章数量</th>
+        <th nz-th>新增子分类</th>
+        <th nz-th>操作</th>
+      </tr>
+     </thead>
+     <tbody nz-tbody>
+       <ng-container>
+         <tr></tr>
+       </ng-container>
+     </tbody>
+    </nz-table>
+  </nz-content>
+</nz-layout>

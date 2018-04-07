@@ -1,0 +1,63 @@
+::ng-deep .logo-wrap {
+  background:#121a2c;
+}
+::ng-deep .logo{
+  display: block;
+  height:50px;
+  padding:10px 0 10px 30px;
+  overflow:hidden;
+  background:#121a2c;
+  cursor: pointer;
+}
+::ng-deep .logo img{
+  height:100%;
+}
+.ant-menu-item-selected{
+  background-color:#121a2c !important;
+}
+.ant-menu-item-selected i{
+  color:#3091f2;
+}
+ul li{
+  outline:none;
+  user-select:none;
+}
+ul li i{
+  font-size:16px;
+  vertical-align:middle;
+  margin-right: 8px;
+}
+ul{
+  background:#19203c;
+}
+.width-60{
+  width:60px !important;
+}
+.overview{
+  height:50px;
+  line-height:50px;
+}
+.line{
+  width:80%;
+  height:1px;
+  background:#4f5672;
+  margin:0 auto;
+}
+.nav-text{
+  overflow:hidden;
+  width:24px;
+  display:-webkit-inline-flex;
+  display:-moz-inline-box;
+  -webkit-transition: width 300ms;
+  -moz-transition: width 300ms;
+  -ms-transition: width 300ms;
+  -o-transition: width 300ms;
+  transition: width 300ms;
+}
+.router{
+  height:100%;
+  width:100%;
+  display:block;
+  outline:none;
+}
+
