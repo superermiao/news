@@ -14,10 +14,9 @@
           <div nz-form-explain *ngIf="(name.dirty || name.touched) && name.invalid">请输入分类名称，最长为30个字符！</div>
         </div>
       </div>
-
     </form>
 
-    <!-- 保存，取消按钮 -->b
+    <!-- 保存，取消按钮 -->
     <div class="save-cancel">
       <button nz-button [nzType]="'primary'" (click)="submit($event)">保存</button>
       <button nz-button [nzSize]="'default'" (click)="cancel($event)" routerLink="/categories">取消</button>

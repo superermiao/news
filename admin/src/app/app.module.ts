@@ -8,8 +8,8 @@ import { SiderComponent } from './pages/frame/sider/sider.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgZorroAntdModule } from 'ng-zorro-antd';
-import {RouterModule} from "@angular/router";
-import {ROUTES} from "./app.router";
+import { RouterModule } from '@angular/router';
+import {ROUTES} from './app.routes';
 
 
 @NgModule({
@@ -26,7 +26,7 @@ import {ROUTES} from "./app.router";
     ReactiveFormsModule,
     HttpClientModule,
     NgZorroAntdModule.forRoot(),
-    RouterModule.forRoot(ROUTES),
+    RouterModule.forRoot(ROUTES, { enableTracing: true }),
   ],
   providers: [],
   bootstrap: [AppComponent]
