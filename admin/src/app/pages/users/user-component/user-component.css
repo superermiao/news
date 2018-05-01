@@ -1,0 +1,74 @@
+:host {
+  position: absolute;
+  top: 20px;
+  left: 170px;
+  bottom: 20px;
+  right: 20px;
+}
+.layout {
+  height: 100%;
+  background: #ffffff;
+}
+.header {
+  background: #fff;
+  padding: 0;
+  height: 47px;
+  line-height: 47px;
+}
+.header h3 {
+  padding-left: 20px;
+}
+nz-layout,nz-content,nz-sider {
+  background-color: #fff;
+}
+nz-sider {
+  border: 1px solid #d9d9d9;
+  margin: 0 15px 0 20px;
+}
+
+.top-control {
+  background-color: #fff;
+  padding: 10px 20px;
+  border-top: 1px solid #d9d9d9;
+  flex: 0 0 auto;
+}
+.top-control-left {
+  float: left;
+}
+.top-control-left button {
+  margin-right: 5px;
+}
+.top-control-right {
+  float: right;
+}
+.top-control-right nz-select {
+  width: 85px;
+}
+.top-control-right input + button ,
+.control-type{
+  margin-right: 8px;
+}
+.list-body {
+  padding-top: 20px;
+}
+
+.category{
+  background: #F6F7FB;
+  line-height: 42px;
+  padding-left: 24px;
+}
+.ant-menu-inline {
+  border: 0 none;
+}
+.ant-menu-item,
+.ant-menu-submenu-inline {
+  border-bottom: 1px solid #e4e2e2;
+}
+.ant-menu-inline .ant-menu-item {
+  margin: 0;
+  left: 0;
+}
+:host ::ng-deep .ant-table-thead > tr > th:first-of-type.ant-table-selection-column {
+  text-align: left;
+}
+

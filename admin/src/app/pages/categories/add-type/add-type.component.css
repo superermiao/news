@@ -8,7 +8,7 @@ nz-layout {
   font-size: 1rem;
 }
 
-nz-content {
+nz-content, nz-header {
   background-color: #fff;
 }
 

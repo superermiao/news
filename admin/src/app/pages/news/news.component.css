@@ -1,0 +1,120 @@
+:host {
+  position: absolute;
+  top: 70px;
+  left: 20px;
+  bottom: 20px;
+  right: 20px;
+}
+.layout {
+  height: 100%;
+  background: #ffffff;
+}
+.header {
+  background: #fff;
+  padding: 0;
+  height: 47px;
+  line-height: 47px;
+}
+.header ul li {
+  padding: 0 17px;
+}
+.header ul li:first-child {
+  margin-left: 20px;
+}
+nz-layout,nz-content,nz-sider {
+  background-color: #fff;
+}
+nz-sider {
+  border: 1px solid #d9d9d9;
+  margin: 0 15px 0 20px;
+}
+
+input.search-input {
+  width: 100px;
+}
+.top-control {
+  background-color: #fff;
+  padding: 10px 20px;
+  border-top: 1px solid #d9d9d9;
+  flex: 0 0 auto;
+}
+.top-control button,
+.screen-condition button:first-child {
+  background-color: #3091F2;
+}
+.top-control-left {
+  float: left;
+}
+.top-control-left button {
+  margin-right: 5px;
+}
+.top-control-right {
+  float: right;
+}
+.top-control-right nz-select {
+  width: 85px;
+}
+.top-control-right input + button ,
+.control-type{
+  margin-right: 8px;
+}
+.screen-condition {
+  padding: 10px;
+  padding-left: 20px;
+  background:rgba(218,237,255,0.35);
+  margin-bottom: 10px;
+}
+.screen-condition nz-input-group {
+  display: inline-block;
+  width: auto;
+  padding-bottom: 9px;
+  padding-right: 70px;
+}
+.screen-condition nz-input-number,
+.screen-condition nz-select,
+.screen-condition nz-datepicker {
+  padding: 0;
+}
+.screen-condition label {
+  padding-right: 10px;
+}
+.stock label {
+  padding-right: 18px;
+}
+.category label {
+  padding-right: 23px;
+}
+.change-time nz-datepicker {
+  position: relative;
+  top: 7px;
+}
+.screen-condition label + nz-input-number,
+.category label + nz-select,
+.change-time label + nz-datepicker{
+  margin-right: 5px;
+}
+.category nz-select,
+.goods-category nz-select,
+.screen-condition nz-input-number,
+.screen-condition nz-datepicker{
+  width: 100px;
+}
+.sider-over{
+  overflow: auto;
+}
+.select-color {
+  color: #ccc;
+}
+
+.new-body {
+  padding-bottom: 20px;
+}
+
+nz-sider::-webkit-scrollbar {
+  width: 4px;
+}
+
+nz-sider::-webkit-scrollbar-thumb {
+  background-color: #d9d9d9;
+}
+

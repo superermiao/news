@@ -1,1 +1,16 @@
-<p>users</p>
+<nz-layout>
+  <nz-sider nzCollapsible [nzWidth]="150" [nzCollapsedWidth]="90" [nzTrigger]="null">
+    <ul nz-menu [nzTheme]="'light'" [nzMode]="'inline'">
+      <li nz-menu-item [routerLink]="['./user-list']" [nzSelected]="true">
+        <span title >用户列表</span>
+      </li>
+      <li  nz-menu-item [routerLink]="['./admin-list']">
+        <span title >管理员列表</span>
+      </li>
+    </ul>
+  </nz-sider>
+  <nz-content>
+    <router-outlet></router-outlet>
+  </nz-content>
+</nz-layout>
+

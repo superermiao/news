@@ -1,0 +1,84 @@
+<nz-layout class="layout">
+  <nz-header class="header">
+    <h3>管理员列表</h3>
+  </nz-header>
+  <div class="top-control">
+    <div class="top-control-left">
+      <button nz-button [nzType]="'primary'" routerLink="/manage/users/edit-admin">
+        <i class="anticon anticon-plus"></i>添加管理员
+      </button>
+    </div>
+    <nz-popconfirm [nzTitle]="'确定删除这些用户吗？'">
+      <button nz-popconfirm nz-button [nzType]="'default'">
+        <i class="anticon anticon-delete"></i> 删除
+      </button>
+    </nz-popconfirm>
+    <div class="top-control-right">
+      <nz-input-group [nzCompact]="true">
+        <nz-select  [(ngModel)]="searchOption">
+          <nz-option *ngFor="let opt of searchType"
+                     nzLabel="{{opt.label}}"
+                     [nzValue]="opt.option">
+          </nz-option>
+        </nz-select>
+        <input type="text" style="width: 200px" class="search-input" nz-input placeholder="请输入用户名、手机号、邮箱" (keyup.enter)="search()" [(ngModel)]="searchValue">
+        <button nz-button nzType="primary" (click)="search()"><i class="anticon anticon-search"></i></button>
+      </nz-input-group>
+    </div>
+  </div>
+  <nz-layout class="list-body">
+    <nz-content>
+      <nz-table #nzTable [nzCustomNoResult]="true" [nzAjaxData]="adminListService.adminList" [nzShowSizeChanger]="adminListService.count > 10" [nzShowQuickJumper]="adminListService.count > 10"
+                [nzIsPagination]="adminListService.count > 10" [nzLoading]="adminListService.loading" [(nzPageIndex)]="adminListService.page"
+                [nzTotal]="adminListService.count" [(nzPageSize)]="adminListService.pageSize" (nzPageIndexChange)="adminListService.getAdminList()"
+                (nzPageSizeChange)="adminListService.getAdminList()">
+        <div noResult class="table-no-result">
+          <img src="http://img.zhichiwangluo.com/zcimgdir/album/file_5a324cdbb08af.jpg" alt="">
+          <p>无相关数据</p>
+        </div>
+        <thead nz-thead>
+        <tr>
+          <th nz-th nzCheckbox>
+            <label nz-checkbox [(ngModel)] = "checkedAll" (ngModelChange) = "toggleCheckedAll()"></label>
+          </th>
+          <th nz-th>管理员id</th>
+          <th nz-th>名称</th>
+          <th nz-th>手机号</th>
+          <th nz-th>邮箱</th>
+          <th nz-th>操作</th>
+        </tr>
+        </thead>
+        <tbody nz-tbody>
+          <tr nz-tbody-tr *ngFor="let data of nzTable.data">
+            <td>
+              <label nz-checkbox [(ngModel)]="data.checked" (ngModelChange) = "refreshStatus()"></label>
+            </td>
+            <td>
+              {{data._id}}
+            </td>
+            <td>
+              {{data.adminName}}
+            </td>
+            <td>
+              {{data.adminTel}}
+            </td>
+            <td>
+              {{data.adminEmail}}
+            </td>
+            <td>
+          <span>
+             <a href="javascript:void(0)" (click)="editAdmin(data._id)">编辑</a>
+             <span nz-table-divider></span>
+            <nz-popconfirm [nzTitle]="'管理员删除后，无法恢复，确定删除这个管理员吗？'"  (nzOnConfirm)="delete(data._id)">
+              <a href="javascript:void(0)" nz-popconfirm >删除</a>
+            </nz-popconfirm>
+          </span>
+            </td>
+          </tr>
+        </tbody>
+      </nz-table>
+    </nz-content>
+  </nz-layout>
+</nz-layout>
+
+

@@ -1,0 +1,14 @@
+<nz-layout class="wrap">
+  <nz-sider nzCollapsible [nzWidth]="170" [nzCollapsedWidth]="90" [(nzCollapsed)]="siderIsCollapsed" [nzTrigger]="null">
+    <!--<admin-sider [(isCollapsed)]="siderIsCollapsed" (onToggleCollapse)="setSiderCollapse($event)"></admin-sider>-->
+    <admin-sider></admin-sider>
+  </nz-sider>
+  <nz-layout class="header-wrap">
+    <nz-header class="header">
+      <admin-header></admin-header>
+    </nz-header>
+    <nz-layout class="router-wrap">
+      <router-outlet></router-outlet>
+    </nz-layout>
+  </nz-layout>
+</nz-layout>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>增加分类</title>
+</head>
+<body>
+<form class="ui form segment" method="post">
+    <div class="field required">
+        <label>分类名</label>
+        <input placeholder="分类名" type="text" name="typeName" id="typeName">
+    </div>
+    <input type="submit" class="ui button fluid" value="添加分类" id="add">
+</form>
+<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+<script type="text/javascript">
+    $(function(){
+        $("#login").click(function(){
+            var typeName = $("#typeName").val();
+            $.ajax({
+                url:'/categories',
+                type:'post',
+                data: data,
+                success: function(data,status){
+                    if(status == '0'){
+                        location.href = 'posts';
+                    }
+                },
+                error: function(data,status){
+                    if(status == '1'){
+                        location.href = 'signin';
+                    }
+                }
+            });
+        });
+    });
+</script>
+
+</body>
+</html>

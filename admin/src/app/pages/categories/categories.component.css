@@ -35,7 +35,9 @@ thead tr th:first-of-type {
   width: 30px;
   border: none;
 }
-
+:host ::ng-deep .ant-table-thead > tr > th:first-of-type.ant-table-selection-column {
+  text-align: left;
+}
 thead tr th:first-of-type label {
   margin-left: 12px;
 }

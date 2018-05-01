@@ -1,0 +1,64 @@
+nz-layout {
+  min-height: 750px;
+  margin: 20px;
+  background-color: #fff;
+}
+
+.type-header {
+  margin-left: 20px;
+  font-size: 1rem;
+}
+
+nz-header {
+  margin: -5px 0;
+  background-color: #fff;
+}
+
+nz-header button {
+  margin-left: -30px;
+}
+
+nz-content {
+  background-color: #fff;
+}
+
+thead tr th {
+  width: 133px;
+  border-right: 2px solid #fff;
+}
+
+thead tr th:first-of-type {
+  width: 30px;
+  border: none;
+}
+
+thead tr th:first-of-type label {
+  margin-left: 12px;
+}
+
+thead tr th:last-of-type {
+  border: none;
+}
+.ant-table-thead > tr > th.ant-table-column-sort {
+  background: #f7f7f7;
+}
+tbody tr td:first-of-type label {
+  margin-left: 12px;
+}
+
+tbody tr {
+  height: 40px;
+  background-color: #fff;
+}
+
+tbody tr td img {
+  width: 30px;
+  height: 30px;
+}
+.type-name {
+  text-align: left !important;
+}
+.sub-type-name {
+  text-align: left !important;
+  padding: 40px !important;
+}

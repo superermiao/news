@@ -1,7 +1,14 @@
 <nz-layout>
   <ul nz-menu [nzMode]="'horizontal'">
-    <li class="add-type-header" nz-menu-data>增加分类</li>
+    <li class="add-type-header" nz-menu-data>{{dataId?'编辑分类':'增加分类'}}</li>
   </ul>
+<!--  <nz-header>
+    <span class="goback-btn" routerLink="/manage/categories">
+      <button nz-button [nzType]="'default'">
+      <i class="anticon anticon-rollback"></i> 返回
+      </button>
+    </span>
+  </nz-header>-->
 
   <nz-content>
     <form nz-form [nzType]="'horizontal'">
@@ -10,8 +17,8 @@
           <label for="name" nz-form-item-required>分类名称</label>
         </div>
         <div class="form-input" nz-form-control nz-col>
-          <nz-input id="name" name="name" required maxlength="30" [(ngModel)]="typeName" #name="ngModel"></nz-input>
-          <div nz-form-explain *ngIf="(name.dirty || name.touched) && name.invalid">请输入分类名称，最长为30个字符！</div>
+          <nz-input id="name" name="name" required maxlength="4" [(ngModel)]="typeName" #name="ngModel"></nz-input>
+          <div nz-form-explain *ngIf="(name.dirty || name.touched) && name.invalid">请输入分类名称，最长为4个字符！</div>
         </div>
       </div>
     </form>
@@ -19,7 +26,7 @@
     <!-- 保存，取消按钮 -->
     <div class="save-cancel">
       <button nz-button [nzType]="'primary'" (click)="submit($event)">保存</button>
-      <button nz-button [nzSize]="'default'" (click)="cancel($event)" routerLink="/categories">取消</button>
+      <button nz-button [nzSize]="'default'" (click)="cancel($event)" routerLink="/manage/categories">取消</button>
     </div>
 
   </nz-content>

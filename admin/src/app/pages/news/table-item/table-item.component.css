@@ -1,0 +1,37 @@
+.table-layout {
+  height: 100%;
+  background-color: #fff;
+}
+.table-layout th {
+  padding: 11px 8px;
+  background:rgba(246,247,251,1);
+}
+.table-layout tbody tr {
+  border-color: rgba(229,230,238,1);
+}
+.table-flag {
+  padding: 0 0 0 17px;
+  line-height:39px;
+  background:rgba(218,237,255,0.35);
+}
+
+.table-flag button {
+  margin-right: 5px;
+}
+
+.hasChecked {
+  padding-right: 25px;
+}
+
+.thumb {
+  width: 29px;
+  height: 29px;
+  vertical-align: middle;
+  margin-right: 4px;
+}
+.goods-table-body td {
+  padding: 7px 8px;
+}
+td nz-input{
+  width:100px;
+}

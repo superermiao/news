@@ -1,0 +1,22 @@
+<div class="logo">
+ <nz-modal [nzVisible]="isVisible" [nzTitle]="modalTitle" [nzContent]="modalContent" [nzFooter]="modalFooter" class="login-model">
+  <ng-template #modalTitle>
+   <h2>管理员登录</h2>
+  </ng-template>
+  <ng-template #modalContent>
+    <div>
+      <label>用户名</label>
+      <nz-input [nzSize]="'large'"  [(ngModel)]="name"></nz-input>
+    </div>
+    <div>
+      <label>密码</label>
+      <nz-input [nzSize]="'large'" [(ngModel)]="pwd"></nz-input>
+    </div>
+  </ng-template>
+  <ng-template #modalFooter>
+    <button class="button" nz-button [nzType]="'primary'" [nzSize]="'large'" (click)="handleOk($event)">
+      登录
+    </button>
+  </ng-template>
+</nz-modal>
+</div>

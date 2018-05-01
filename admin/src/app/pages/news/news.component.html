@@ -1,1 +1,66 @@
-<p>news</p>
+<nz-layout class="layout">
+  <nz-header class="header">
+    <ul nz-menu nzMode="horizontal">
+      <li nz-menu-item >已发布</li>
+      <li nz-menu-item >审核中</li>
+      <li nz-menu-item >已删除</li>
+    </ul>
+  </nz-header>
+  <div class="top-control">
+    <div class="top-control-left">
+      <button nz-button [nzType]="'primary'" routerLink="/manage/news/edit-news">
+        <i class="anticon anticon-plus"></i><span>添加新闻</span>
+      </button>
+      <button nz-button [nzType]="'primary'" (click)="showScreen()">
+        <span>筛选</span><i class="anticon" [class.anticon-up]="showCondition" [class.anticon-down]="!showCondition"></i>
+      </button>
+    </div>
+    <div class="top-control-right">
+      <nz-input-group [nzCompact]="true">
+        <nz-select  [(ngModel)]="searchOption">
+          <nz-option *ngFor="let opt of searchType"
+                     nzLabel="{{opt.label}}"
+                     [nzValue]="opt.option">
+          </nz-option>
+        </nz-select>
+        <input type="text" class="search-input" nz-input placeholder="请输入搜索条件" (keyup.enter)="search()" [(ngModel)]="searchValue">
+        <button nz-button nzType="primary" (click)="search()"><i class="anticon anticon-search"></i></button>
+        <button nz-button [nzType]="'primary'" class="control-type" [routerLink]="['/categories']">
+          <i class="anticon anticon-setting"></i><span>分类管理</span>
+        </button>
+       <!-- <button nz-button [nzType]="'primary'">
+          <i class="anticon anticon-upload"></i>
+          <span>新闻导出</span>
+        </button>-->
+      </nz-input-group>
+    </div>
+  </div>
+  <div class="screen-condition" *ngIf="showCondition">
+    <nz-input-group class="browse-nums">
+      <label>浏览量</label>
+      <nz-input-number [(ngModel)]="leastView" [nzMin]="0"></nz-input-number>
+      <nz-input-number [(ngModel)]="mostView" [nzMin]="0"></nz-input-number>
+    </nz-input-group>
+    <nz-input-group class="change-time">
+      <label>变更时间</label>
+      <nz-datepicker [(ngModel)]="startTime"></nz-datepicker>
+      <nz-datepicker [(ngModel)]="endTime"></nz-datepicker>
+    </nz-input-group>
+    <div class="submit-screen">
+      <button  nz-button [nzType]="'primary'" (click)="handleOk()">
+        <span>确认</span>
+      </button>
+      <button nz-button [nzType]="'default'" (click)="handleCancel()">
+        <span>重置</span>
+      </button>
+    </div>
+  </div>
+  <nz-layout class="new-body">
+    <nz-sider [nzWidth]="150" class="sider-over">
+      <side-group></side-group>
+    </nz-sider>
+    <nz-content>
+      <table-item></table-item>
+    </nz-content>
+  </nz-layout>
+</nz-layout>

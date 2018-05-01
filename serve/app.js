@@ -9,11 +9,12 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var ejs = require('ejs');
-var routes= require('./routes');
-// var users = require('./routes/users');
-/*var login = require('./routes/login');*/
+var index= require('./routes');
+var client= require('./routes/client');
+var admins = require('./routes/admins');
+var cors = require('cors');
 var app = express();
-
+app.use(cors());
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.engine('.html', ejs.__express);
@@ -55,9 +56,10 @@ app.use(function (req, res, next) {
     res.locals.error = req.flash('error').toString();
     next()
 });
-routes(app);
-// app.use('/users', users);
-/*app.use('/login',login);*/
+//routes(app);
+app.use('/api', index);
+app.use('/api/client', client);
+app.use('/api/admin', admins);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -74,7 +76,7 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('error');
+  console.log('error', err);
 });
 // 监听端口，启动程序
 // app.listen(config.port, function () {

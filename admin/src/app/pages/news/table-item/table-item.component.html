@@ -1,0 +1,55 @@
+<nz-layout class="table-layout">
+  <nz-content>
+    <nz-table #nzTabl>
+      <thead nz-thead>
+      <tr>
+        <th>
+        </th>
+        <th nz-th>
+          <span>新闻标题</span>
+        </th>
+        <th nz-th>
+          <span>新闻作者</span>
+        </th>
+        <th nz-th>
+          <span>新闻发布者</span>
+        </th>
+        <th nz-th>
+          <span>浏览量</span>
+          <nz-table-sort></nz-table-sort>
+        </th>
+        <th nz-th>
+          <span>变更时间</span>
+          <nz-table-sort></nz-table-sort>
+        </th>
+        <th nz-th>
+          <span>操作</span>
+        </th>
+      </tr>
+      </thead>
+      <tbody nz-tbody class="goods-table-body">
+      <tr nz-tbody-tr >
+
+      </tr>
+      </tbody>
+    </nz-table>
+  </nz-content>
+  <nz-footer class="table-flag">
+    <label nz-checkbox class="hasChecked">
+      <span>已选 0 /10 条新闻</span>
+    </label>
+    <button nz-button [nzType]="'default'">
+      <span>发布</span>
+    </button>
+    <button nz-button [nzType]="'default'">
+      <span>复制</span>
+    </button>
+    <button nz-button [nzType]="'default'">
+      <span>删除</span>
+    </button>
+    <button nz-button [nzType]="'primary'">
+      <i class="anticon anticon-upload"></i>
+      <span>导出</span>
+    </button>
+  </nz-footer>
+</nz-layout>

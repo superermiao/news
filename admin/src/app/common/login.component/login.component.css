@@ -1,0 +1,20 @@
+:host {
+  height: 100%;
+  position: relative;
+}
+
+.logo {
+  height: 100%;
+  background-image: url("../../../assets/img/login.jpg");
+}
+:host ::ng-deep .login-model .ant-modal-footer{
+  text-align: center;
+  padding: 10px 16px 10px 16px;
+}
+:host ::ng-deep nz-modal .ant-modal-footer .button {
+  width: 100%;
+}
+:host ::ng-deep .login-model .ant-modal {
+  width: 420px !important;
+}
+

@@ -5,26 +5,24 @@
 
   <nz-header>
     <span class="add-type-btn">
-      <button nz-button [nzType]="'primary'"  routerLink="/categories/add-type">
+      <button nz-button [nzType]="'primary'"  routerLink="/manage/categories/add-type">
         <i class="anticon anticon-plus"></i>新增分类
       </button>
     </span>
 
-    <nz-popconfirm [nzTitle]="'确定删除这个分类吗？'">
+    <nz-popconfirm [nzTitle]="'确定删除这些分类吗？'"  (nzOnConfirm)="delete()">
       <button nz-popconfirm nz-button [nzType]="'default'">
         <i class="anticon anticon-delete"></i> 删除
       </button>
     </nz-popconfirm>
 
-    <!--<span class="goback-btn" routerLink="/shops/goods">-->
-      <!--<button nz-button [nzType]="'default'">-->
-        <!--<i class="anticon anticon-rollback"></i> 返回-->
-      <!--</button>-->
-    <!--</span>-->
   </nz-header>
 
   <nz-content>
-    <nz-table #nzTable [nzCustomNoResult]="true">
+    <nz-table #nzTable [nzCustomNoResult]="true" [nzAjaxData]="categoriesService.typeList" [nzShowSizeChanger]="categoriesService.count > 10" [nzShowQuickJumper]="categoriesService.count > 10"
+              [nzIsPagination]="categoriesService.count > 10" [nzLoading]="categoriesService.loading" [(nzPageIndex)]="categoriesService.page"
+              [nzTotal]="categoriesService.count" [(nzPageSize)]="categoriesService.pageSize" (nzPageIndexChange)="categoriesService.getTypeList()"
+              (nzPageSizeChange)="categoriesService.getTypeList()">
       <div noResult class="table-no-result">
         <img src="http://img.zhichiwangluo.com/zcimgdir/album/file_5a324cdbb08af.jpg" alt="">
         <p>无相关数据</p>
@@ -32,19 +30,35 @@
       <thead nz-thead>
       <tr>
         <th nz-th nzCheckbox>
-          <label nz-checkbox  [nzIndeterminate]="indeterminate" ></label>
+          <label nz-checkbox [(ngModel)] = "checkedAll" (ngModelChange) = "toggleCheckedAll()"></label>
         </th>
         <th nz-th>分类名称</th>
-        <th nz-th>分类id</th>
-        <th nz-th>文章数量</th>
-        <th nz-th>新增子分类</th>
+        <th nz-th>创建时间</th>
+       <!-- <th nz-th>新增子分类</th>-->
         <th nz-th>操作</th>
       </tr>
      </thead>
      <tbody nz-tbody>
-       <ng-container>
-         <tr></tr>
-       </ng-container>
+       <tr nz-tbody-tr *ngFor="let data of nzTable.data">
+         <td>
+           <label nz-checkbox [(ngModel)]="data.checked" (ngModelChange) = "refreshStatus()"></label>
+         </td>
+         <td>
+           {{data.categoryName}}
+         </td>
+         <td>
+           {{data.categoryDate}}
+         </td>
+         <td>
+          <span>
+             <a href="javascript:void(0)" (click)="editCategory(data._id)">编辑</a>
+             <span nz-table-divider></span>
+            <nz-popconfirm [nzTitle]="'确定删除这个分类吗？'"  (nzOnConfirm)="delete(data._id)">
+              <a href="javascript:void(0)" nz-popconfirm>删除</a>
+            </nz-popconfirm>
+          </span>
+         </td>
+       </tr>
      </tbody>
     </nz-table>
   </nz-content>

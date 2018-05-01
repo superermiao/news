@@ -1,0 +1,28 @@
+:host {
+  height: 100%;
+  position: relative;
+}
+
+nz-layout {
+  height: 100%;
+}
+
+nz-sider {
+  background-color: #fff;
+}
+
+.ant-menu-item {
+  padding-left: 20px !important;
+  border-left: 4px solid #fff;
+  display: block;
+  outline: none;
+}
+/* nz-sider的导航被选中的样式 */
+.ant-menu-item-selected {
+  border-left: 4px solid #108ee9;
+  color: rgba(0, 0, 0, 0.65);
+}
+
+.ant-menu-item-selected:after {
+  opacity: 0;
+}

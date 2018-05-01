@@ -1,0 +1,30 @@
+:host {
+  height: 100%;
+  position: relative;
+}
+.wrap{
+  height:100%;
+}
+nz-sider{
+  background:#19203c;
+}
+.header-wrap{
+  position:relative;
+  height:100%;
+  padding-top:50px;
+}
+.header{
+  background:#fff;
+  border-bottom:1px solid #d9d9d9;
+  position:absolute;
+  top:0px;
+  left:0px;
+  width:100%;
+  height:50px;
+  line-height:50px;
+  padding:0px;
+}
+.router-wrap{
+  overflow:auto;
+  height:100%;
+}

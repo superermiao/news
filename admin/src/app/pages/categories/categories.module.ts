@@ -8,6 +8,7 @@ import {HttpClientModule} from '@angular/common/http';
 import { routes } from './categories.routes';
 import { AddTypeComponent } from './add-type/add-type.component';
 import { AddTypeServices } from './add-type/add-type.services';
+import { CategoriesService } from './categories.service';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { AddTypeServices } from './add-type/add-type.services';
     HttpClientModule,
   ],
   providers: [
-    AddTypeServices
+    AddTypeServices,
+    CategoriesService
   ]
 })
 export class CategoriesModule {

@@ -1,0 +1,74 @@
+<!--<quill-editor [(ngModel)]="editorContent"> quill-editor>-->
+<nz-content class="edit-content">
+  <div class="title">{{dataId ? '编辑新闻' : '添加新闻'}}</div>
+  <div class="content">
+    <div class="content-layout">
+      <div nz-row class="form-item">
+        <div nz-col [nzSpan]="3" class="more-info-label necessary">
+          新闻分类
+        </div>
+        <div nz-col [nzSpan]="21">
+          <nz-select  [(ngModel)]="category" [nzPlaceHolder]="'请选择分类'">
+            <nz-option *ngFor="let data of typeList" [nzLabel]="data.categoryName" [nzValue]="data._id"></nz-option>
+          </nz-select>
+        </div>
+      </div>
+
+      <div nz-row class="form-item">
+        <div nz-col [nzSpan]="3" class="more-info-label necessary">
+          新闻标题
+        </div>
+        <div nz-col [nzSpan]="21">
+          <input type="text" nz-input [(ngModel)]="title">
+        </div>
+      </div>
+
+      <div nz-row class="form-item">
+        <div nz-col [nzSpan]="3" class="more-info-label necessary">
+          新闻简介
+        </div>
+        <div nz-col [nzSpan]="21">
+          <nz-input [nzType]="'textarea'" [(ngModel)]="excerpt" [nzRows]="'4'"></nz-input>
+        </div>
+      </div>
+
+      <div nz-row class="form-item">
+        <div nz-col [nzSpan]="3" class="more-info-label">
+          新闻来源
+        </div>
+        <div nz-col [nzSpan]="21">
+          <input type="text" nz-input [(ngModel)]="origin">
+        </div>
+      </div>
+
+      <div nz-row class="form-item">
+        <div nz-col [nzSpan]="3" class="more-info-label">
+          作者
+        </div>
+        <div nz-col [nzSpan]="21">
+          <input type="text" nz-input [(ngModel)]="author">
+        </div>
+      </div>
+
+      <div nz-row class="form-item">
+        <div nz-col [nzSpan]="3" class="more-info-label necessary">
+          详细内容
+        </div>
+        <div nz-col [nzSpan]="20">
+          <quill-editor  #editor [placeholder]="'请输入内容'" [(ngModel)]="content" [style]="{height: '150px'}"></quill-editor>
+        </div>
+      </div>
+
+      <div nz-row class="form-item">
+        <div nz-col [nzSpan]="3" class="more-info-label">
+
+        </div>
+        <div nz-col [nzSpan]="21">
+          <button nz-button [nzType]="'primary'" (click)="addNews($event)">保存</button>
+          <button nz-button [nzType]="'default'" routerLink="/manage/news">返回</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</nz-content>
