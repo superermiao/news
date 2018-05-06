@@ -5,6 +5,7 @@ const dbHelper = require('../db/dbHelper');
 router.post('/news/list', function(req, res, next){
 
 });
+/*根据条件进行查找所有分类*/
 router.post('/type/list',function (req,res, next) {
     if (req.body){
         var page = parseInt(req.body.page) || 1;

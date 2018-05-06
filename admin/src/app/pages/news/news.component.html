@@ -1,9 +1,8 @@
 <nz-layout class="layout">
   <nz-header class="header">
     <ul nz-menu nzMode="horizontal">
-      <li nz-menu-item >已发布</li>
-      <li nz-menu-item >审核中</li>
-      <li nz-menu-item >已删除</li>
+      <li nz-menu-item (click)="getNewsStatus('0')" [nzSelected]="newsService.newStatus === '0'">已发布</li>
+      <li nz-menu-item (click)="getNewsStatus('1')" [nzSelected]="newsService.newStatus === '1'">审核中</li>
     </ul>
   </nz-header>
   <div class="top-control">
@@ -25,7 +24,7 @@
         </nz-select>
         <input type="text" class="search-input" nz-input placeholder="请输入搜索条件" (keyup.enter)="search()" [(ngModel)]="searchValue">
         <button nz-button nzType="primary" (click)="search()"><i class="anticon anticon-search"></i></button>
-        <button nz-button [nzType]="'primary'" class="control-type" [routerLink]="['/categories']">
+        <button nz-button [nzType]="'primary'" class="control-type" [routerLink]="['/manage/categories']">
           <i class="anticon anticon-setting"></i><span>分类管理</span>
         </button>
        <!-- <button nz-button [nzType]="'primary'">

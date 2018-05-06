@@ -9,7 +9,7 @@
         </div>
         <div nz-col [nzSpan]="21">
           <nz-select  [(ngModel)]="category" [nzPlaceHolder]="'请选择分类'">
-            <nz-option *ngFor="let data of typeList" [nzLabel]="data.categoryName" [nzValue]="data._id"></nz-option>
+            <nz-option *ngFor="let data of newsService.categories" [nzLabel]="data.categoryName" [nzValue]="data._id"></nz-option>
           </nz-select>
         </div>
       </div>
@@ -55,7 +55,7 @@
           详细内容
         </div>
         <div nz-col [nzSpan]="20">
-          <quill-editor  #editor [placeholder]="'请输入内容'" [(ngModel)]="content" [style]="{height: '150px'}"></quill-editor>
+          <quill-editor  #editor [placeholder]="'请输入内容'" [(ngModel)]="content" [style]="{height: '280px'}"></quill-editor>
         </div>
       </div>
 

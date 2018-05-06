@@ -1,18 +1,18 @@
 <ul nz-menu [nzMode]="'inline'" >
   <li class="category"><span>分类</span></li>
-  <li nz-menu-item>全部</li>
-  <!--<div *ngFor="let category of sideGroupService['categorys']" [ngSwitch]="category['subclass'].length">-->
-    <!--<li *ngSwitchCase="0" nz-menu-item (click)="getGoodsList($event,category)" [nzSelected]="category.checked">-->
-      <!--<span nz-tooltip="{{category.name}}" class="name">{{category.name}}</span>-->
-    <!--</li>-->
-    <!--<li  *ngSwitchDefault  nz-submenu (click)="getGoodsList($event,category)" [nzOpen]="category.checked">-->
-      <!--<span title  class="name" nz-tooltip="{{category.name}}">{{category['name']}}</span>-->
-      <!--<ul *ngIf="category['subclass'].length>0">-->
-        <!--<li nz-menu-item *ngFor="let item of category['subclass']" (click)="getGoodsList($event,item)" [nzSelected]="item.checked">-->
-          <!--<span title class="subname" nz-tooltip="{{item['name']}}">{{item['name']}}</span>-->
-        <!--</li>-->
-      <!--</ul>-->
-    <!--</li>-->
-  <!--</div>-->
+  <li nz-menu-item (click)="getNewsList()" [nzSelected]="newsService.selectedAll">全部</li>
+  <div *ngFor="let category of newsService.categories" [ngSwitch]="category['subCategory'].length">
+    <li *ngSwitchCase="0" nz-menu-item  [nzSelected]="category.checked" (click)="getNewsList(category._id)">
+      <span nz-tooltip="{{category.categoryName}}" class="name">{{category.categoryName}}</span>
+    </li>
+   <!-- <li  *ngSwitchDefault  nz-submenu (click)="getGoodsList($event,category)" [nzOpen]="category.checked">
+      <span title  class="name" nz-tooltip="{{category.name}}">{{category['name']}}</span>
+      <ul *ngIf="category['subclass'].length>0">
+        <li nz-menu-item *ngFor="let item of category['subclass']" (click)="getGoodsList($event,item)" [nzSelected]="item.checked">
+          <span title class="subname" nz-tooltip="{{item['name']}}">{{item['name']}}</span>
+        </li>
+      </ul>
+    </li>-->
+  </div>
 </ul>
 

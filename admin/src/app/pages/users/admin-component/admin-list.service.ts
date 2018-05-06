@@ -25,10 +25,8 @@ export class AdminListService {
     const params = {
       page: this.page,
       page_size: this.pageSize,
-      idx_arr: {
-        idx: this.idx,
-        idx_value: this.idx_value
-      }
+      idx: this.idx,
+      idx_value: this.idx_value,
     };
     this.loading = true;
     this.http.post(API_LIST.GET_ADMIN_LIST, tranformParams(params), { headers }).subscribe((res: any) => {

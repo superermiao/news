@@ -48,7 +48,7 @@ export class CategoriesComponent implements OnInit {
     if (id) {
       this.categoriesService.deleteById(id).subscribe((res: any) => {
         if (res.status === '0') {
-          this.nzMessage.success('删除成功');
+          this.nzMessage.success('登录成功');
           this.categoriesService.getTypeList();
         } else {
           this.nzModal.warning({title: '删除失败', content: res.data});

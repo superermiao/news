@@ -6,17 +6,20 @@
   <ng-template #modalContent>
     <div>
       <label>用户名</label>
-      <nz-input [nzSize]="'large'"  [(ngModel)]="name"></nz-input>
+      <input nz-input [(ngModel)]="name" type="text">
     </div>
     <div>
       <label>密码</label>
-      <nz-input [nzSize]="'large'" [(ngModel)]="pwd"></nz-input>
+      <input nz-input   [(ngModel)]="pwd" type="password">
     </div>
   </ng-template>
   <ng-template #modalFooter>
-    <button class="button" nz-button [nzType]="'primary'" [nzSize]="'large'" (click)="handleOk($event)">
+    <button class="button" nz-button [nzType]="'primary'" [nzSize]="'large'" (click)="handleOk($event)" [nzLoading]="isLoading">
       登录
     </button>
+    <div class="forget">
+      忘记密码请联系超级管理员
+    </div>
   </ng-template>
 </nz-modal>
 </div>

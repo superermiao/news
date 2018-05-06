@@ -1,6 +1,4 @@
-:host{
-  height: 100%;
-}
+
 .edit-content {
   background-color: #ffffff;
   height: 100%;
@@ -23,13 +21,19 @@
   margin-bottom: 10px;
   min-height: 38px;
 }
+input[type="password"]{
+  width: 180px;
+}
 .edit-content .form-item input[type="text"],
+.edit-content .form-item input[type="password"],
 .edit-content .form-item input[type="number"] {
   width: 180px;
 }
+/*
 .edit-content .form-item nz-input {
   width: 260px;
 }
+*/
 
 .edit-content .form-item .more-info-label {
   line-height: 28px;

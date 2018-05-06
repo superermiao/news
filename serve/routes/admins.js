@@ -5,6 +5,8 @@ const UserModal = require('../models/user');
 const AdminModel = require('../models/admin');
 const NewsModel = require('../models/news');
 const dbHelper = require('../db/dbHelper');
+var crypto = require('crypto');
+var md5 = crypto.createHash('md5');
 /*登录*/
 router.post('/login', function(req, res, next){
     console.log('进入登陆', req.body.name);
@@ -163,8 +165,8 @@ router.post('/user-list', function (req,res,next) {
         var page = parseInt(req.body.page) || 1;
         var pageSize = parseInt(req.body.page_size)|| 10;
         var query = {};
-        if(req.body.idx_arr && req.body.idx_arr.idx_value) {
-            query[req.body.idx_arr.idx] = new RegExp(req.body.idx_arr.idx_value);
+        if (req.body.idx_value) {
+            query[req.body.idx] = new RegExp(req.body.idx_value, "i");
         }
         dbHelper.pageQuery(page, pageSize, UserModal, '', query, {},function (err, data) {
             if(err) {
@@ -220,8 +222,8 @@ router.post('/admin-list', function (req,res,next) {
         var page = parseInt(req.body.page) || 1;
         var pageSize = parseInt(req.body.page_size)|| 10;
         var query = {};
-        if(req.body.idx_arr && req.body.idx_arr.idx_value) {
-            query[req.body.idx_arr.idx] = new RegExp(req.body.idx_arr.idx_value);
+        if (req.body.idx_value) {
+            query[req.body.idx] = new RegExp(req.body.idx_value, "i");
         }
         dbHelper.pageQuery(page, pageSize, AdminModel, '', query, {},function (err, data) {
             if(err) {
@@ -275,7 +277,7 @@ router.post('/add-admin',function (req, res, next) {
     if(req.body) {
         var params = {
             adminName: req.body.adminName,
-            adminPwd: req.body.adminPwd,
+            adminPwd: md5.update(req.body.adminPwd).digest('hex'),
             adminTel: req.body.adminTel,
             adminEmail: req.body.adminEmail,
             role: req.body.role,
@@ -390,5 +392,154 @@ router.post('/add-news',function (req,res,next) {
         });
     }
 });
+/*删除新闻*/
+router.post('/delete-one-news',function (req,res,next) {
+    if(req.body) {
+        var id = req.body.id;
+        NewsModel.findByIdAndRemove(id,function (err,data) {
+            if (err) {
+                res.json({
+                    status: '1',
+                    data: err.message
+                });
+            } else {
+                res.json({
+                    status: '0',
+                    data: data
+                });
+            }
+        })
+    } else {
+        res.json({
+            status: '1',
+            data: '遭遇未知错误'
+        });
+    }
+});
 /*根绝ID查找新闻*/
+router.post('/find-one-news',function (req,res,next) {
+    if(req.body) {
+        var id = req.body.id;
+        NewsModel.findById(id,function (err,data) {
+            if (err) {
+                res.json({
+                    status: '1',
+                    data: err.message
+                });
+            } else {
+                res.json({
+                    status: '0',
+                    data: data
+                });
+            }
+        })
+    } else {
+        res.json({
+            status: '1',
+            data: '遭遇未知错误'
+        });
+    }
+});
+/*后台根据页数查找所有新闻*/
+router.post('/news-list',function (req,res,next) {
+    if (req.body){
+        var page = parseInt(req.body.page) || 1;
+        var pageSize = parseInt(req.body.page_size)|| 10;
+        var params = {};
+        if (req.body.category_id) {
+            params['category'] = req.body.category_id;
+        }
+        if (req.body.idx_value) {
+            params[req.body.idx] = new RegExp(req.body.idx_value, "i");
+        }
+        if (req.body.status) {
+            params['status'] = req.body.status;
+        }
+        dbHelper.pageQuery(page, pageSize, NewsModel, '', params, {newsDate: 'desc'},function (err, data) {
+            console.log('得到的数据', data);
+            if(err) {
+                res.json({
+                    status: '1',
+                    data: err.message
+                });
+            } else{
+                res.json({
+                    status: '0',
+                    pageCount: data.pageCount,
+                    count: data.count,
+                    currentPage: data.currentPage,
+                    data: data.results
+                });
+            }
+        });
+    } else {
+        res.json({
+            status: '1',
+            data: '遭遇未知错误'
+        });
+    }
+});
+/*将新闻审核状态转为发布新闻*/
+router.post('/update-news-status', function (req,res,next) {
+    if (req.body){
+        var id = req.body.id;
+        var status = req.body.status;
+        NewsModel.findByIdAndUpdate(id,{status: status, update: Date.now()}, {new: true}, function (err,data) {
+            if (err) {
+                res.json({
+                    status: '1',
+                    data: err.message
+                });
+            } else {
+                res.json({
+                    status: '0',
+                    data: data
+                });
+            }
+      })
+    } else {
+        res.json({
+            status: '1',
+            data: '遭遇未知错误'
+        });
+    }
+});
+/*修改新闻*/
+router.post('/update-news',function (req,res,next) {
+    if(req.body) {
+        var id = req.body.id;
+        var params = {
+            category: req.body.category,
+            author: req.body.author ,
+            excerpt: req.body.excerpt ,
+            content: req.body.content ,
+            origin : req.body.origin  ,
+            title  : req.body.title,
+            status: '1',
+            update: Date.now()
+        };
+        NewsModel.findByIdAndUpdate(id,params,{new:true},function (err, data) {
+            if(err){
+                res.json({
+                    status: '1',
+                    data: err.message
+                });
+            } else {
+                res.json({
+                    status: '0',
+                    data: data
+                });
+            }
+        })
+    } else {
+        res.json({
+            status: '1',
+            data: '遭遇未知错误'
+        });
+    }
+});
+/*复制新闻*/
+/*router.post('copy-one-news',function () {
+
+});*/
 module.exports = router;

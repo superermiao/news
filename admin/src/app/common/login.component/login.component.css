@@ -17,4 +17,12 @@
 :host ::ng-deep .login-model .ant-modal {
   width: 420px !important;
 }
+.button{
+  letter-spacing: 5px;
+}
+.forget {
+  text-align: right;
+  color: #ccc9c9;
+  line-height: 20px;
+}
 

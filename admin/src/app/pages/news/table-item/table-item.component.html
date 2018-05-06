@@ -1,6 +1,13 @@
 <nz-layout class="table-layout">
   <nz-content>
-    <nz-table #nzTabl>
+    <nz-table #nzTable [nzCustomNoResult]="true" [nzAjaxData]="newsService.newsList" [nzShowSizeChanger]="newsService.count > 10" [nzShowQuickJumper]="newsService.count > 10"
+              [nzIsPagination]="newsService.count > 10" [nzLoading]="newsService.loading" [(nzPageIndex)]="newsService.page"
+              [nzTotal]="newsService.count" [(nzPageSize)]="newsService.pageSize" (nzPageIndexChange)="newsService.getNewsList()"
+              (nzPageSizeChange)="newsService.getNewsList()">
+      <div noResult class="table-no-result">
+        <img src="http://img.zhichiwangluo.com/zcimgdir/album/file_5a324cdbb08af.jpg" alt="">
+        <p>无相关数据</p>
+      </div>
       <thead nz-thead>
       <tr>
         <th>
@@ -28,8 +35,28 @@
       </tr>
       </thead>
       <tbody nz-tbody class="goods-table-body">
-      <tr nz-tbody-tr >
-
+      <tr nz-tbody-tr  *ngFor="let data of nzTable.data">
+        <label nz-checkbox></label>
+        <td>{{data.title}}</td>
+        <td>{{data.author}}</td>
+        <td>admin</td>
+        <td>0</td>
+        <td>{{data.update}}</td>
+        <td>
+          <a (click)="editNews(data._id)">编辑</a>
+          <span *ngIf="newsService.newStatus === '1'">
+            <span nz-table-divider></span>
+            <a>复制</a>
+          </span>
+          <span *ngIf="newsService.newStatus === '1'">
+            <span nz-table-divider></span>
+            <nz-popconfirm [nzTitle]="'确定发布该新闻吗？'" (nzOnConfirm)="publish(data._id)">
+              <a  nz-popconfirm >发布</a>
+            </nz-popconfirm>
+          </span>
+          <span nz-table-divider></span>
+           <a (click)="delete(data._id)">删除</a>
+        </td>
       </tr>
       </tbody>
     </nz-table>

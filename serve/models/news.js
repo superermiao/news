@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const category = require('./categories');
+const db = require('../db/db');
 const NewSchema = new Schema({
     "title": {
         type: String,
@@ -38,4 +39,5 @@ const NewSchema = new Schema({
         type: String
     }
 });
-module.exports = mongoose.model('new',NewSchema);
+const NewsModel = db.model('new',NewSchema);
+module.exports = NewsModel;
