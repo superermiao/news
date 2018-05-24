@@ -14,6 +14,8 @@ export class CommentsService {
   public idx = 'title';
   public idx_value = '';
   public commentStatus = '0';
+  // 评论选中全选
+  public checkedAll = false;
   // 分类全部选中状态
   public selectedAll = false;
   constructor(private http: HttpClient,
@@ -30,7 +32,6 @@ export class CommentsService {
     const params = {
       page: this.page,
       page_size: this.pageSize,
-      status: this.commentStatus,
       ...this.optionParams
     };
     this.loading = true;
@@ -46,13 +47,14 @@ export class CommentsService {
         this.commentList = [];
       }
       this.loading = false;
+      this.checkedAll = false;
     });
   }
 
   /**
    * 发布评论 status 1
    */
-  public publish(id) {
+  public updateStatus(id) {
     const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
     const params = {
       id: id,
@@ -77,10 +79,25 @@ export class CommentsService {
    */
   public deletdMany() {
     const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
-    let typeData = this.commentList.filter((ele) => ele.checked);
-    typeData = typeData.map((ele) => {
-      return ele._id;
+    let typeData = [];
+     this.commentList.map((ele) => {
+      if (ele.checked === true) {
+        typeData.push(ele._id);
+      }
     });
     console.log(typeData);
+    return this.http.post(API_LIST.BATCH_COMMENTS, tranformParams(typeData), {headers});
+  }
+
+  /**
+   * 根据id查找新闻
+   * @param id
+   */
+  public findNewsById(id) {
+    const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+    const params = {
+      id: id,
+    };
+    return this.http.post(API_LIST.FIND_ONE_NEWS, tranformParams(params), { headers });
   }
 }

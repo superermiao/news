@@ -31,18 +31,33 @@
 }
 .txt-box {
   padding: 0px 10px;
+  overflow: hidden;
+}
+.txt-box span {
+  font-size: 16px;
+  overflow: hidden;
+  text-overflow:ellipsis;
+  white-space: nowrap;
+  font-weight: bold;
 }
 .txt-box p {
   text-indent: 2em;
-  line-height: 20px;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+  overflow: hidden;
+  color: #999;
+  line-height: 25px;
 }
 .img-box img {
-  width: 100%;
+  width: 150px;
   height: 100%;
+  display: inline-block;
+  overflow: hidden;
 }
 .footer-box{
   font-size: 12px;
-  color: #999;
+  color: #ccc;
   line-height: 30px;
 }
 

@@ -307,4 +307,61 @@ router.post('/add-comment', function (req, res, next) {
         });
     }
 });
+/*显示评论*/
+router.post('/show-comment',function (req, res, next) {
+    if (req.body){
+        console.log('返回的数', req.body);
+        var page = parseInt(req.body.page) || 1;
+        var pageSize = parseInt(req.body.page_size)|| 5;
+        var params = {
+            status: '1',
+            newsId: req.body.newsId
+        };
+        dbHelper.pageQuery(page, pageSize, CommentModel, 'userId', params, {createTime: -1},function (err, data) {
+            if(err) {
+                res.json({
+                    status: '1',
+                    data: err.message
+                });
+            } else{
+               /* res.json({
+                    status: '0',
+                    pageCount: data.pageCount,
+                    count: data.count,
+                    currentPage: data.currentPage,
+                    data: data.results
+                });*/
+               // 防止用户密码和密保问题泄露
+                var arr = [];
+                var currentCount = 0;
+                if (parseInt(data.count) <= parseInt(pageSize)) {
+                    currentCount = data.count;
+                } else {
+                    currentCount =  data.count - (parseInt(page)-1)*parseInt(pageSize);
+                }
+                console.log('当前页的条数', currentCount);
+                console.log('当前页的pageSize', pageSize);
+                for(var i= 0; i < currentCount;i++){
+                    data.results[i].userId.userPwd = '';
+                    data.results[i].userId.userQuestion = '';
+                    data.results[i].userId.userAnswer = '';
+                    arr.push(data.results[i]);
+                }
+                console.log('总条数', data.count);
+                res.json({
+                    status: '0',
+                    pageCount: data.pageCount,
+                    count: data.count,
+                    currentPage: data.currentPage,
+                    data: arr
+                });
+            }
+        });
+    } else {
+        res.json({
+            status: '1',
+            data: '遭遇未知错误'
+        });
+    }
+});
 module.exports = router;

@@ -7,9 +7,13 @@ const CommentSchema = new Schema({
         type: Date,
         default: Date.now
     },
-    "userId":String,
+    "userId":{
+        type: Schema.Types.ObjectId, ref: 'user'
+},
     "userName": String,
-    "newsId":String,
+    "newsId":{
+        type: Schema.Types.ObjectId, ref: 'new'
+    },
     "status": {
         type: String,
         default: '0'

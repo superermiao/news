@@ -26,6 +26,14 @@ const API_LIST = {
   /**
    *根绝ID查找管理员
    */
-  FIND_ONE_ADMIN: 'http://127.0.0.1:3000/api/admin/find-one-admin'
+  FIND_ONE_ADMIN: 'http://127.0.0.1:3000/api/admin/find-one-admin',
+  /**
+   * 批量删除管理员
+   */
+  BATCH_DELET_ADMIN: 'http://127.0.0.1:3000/api/admin/batch-delete-admin',
+  /**
+   * 批量删除用户
+   */
+  BATCH_DELET_USER: 'http://127.0.0.1:3000/api/admin/batch-delete-user'
 };
 export  default API_LIST;

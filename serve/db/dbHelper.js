@@ -29,20 +29,32 @@ var pageQuery = function (page, pageSize, Model, populate, queryParams, sortPara
         },
     }, function (err, results) {
         var count = results.count;
-        console.log('总数： ' + count);
-        console.log('一页的记录：', results);
-        $page.pageCount = Math.floor((count - 1) / pageSize + 1);
+        // 页数
+        $page.pageCount = Math.ceil(count /pageSize);
         $page.results = results.records;
+        // 总数
         $page.count = count;
+        // 当前页
         $page.currentPage = page;
-        console.log('需要传给回掉函数的数据', $page);
         callback(err, $page);
     });
 };
 var manyQuery = function (Model, param, callback) {
     Model.find(param).exec(callback);
 };
+var batchDelete = function (params, Model, callback) {
+    for (var i = 0; i < params.length; i++) {
+        Model.remove(params[i],function (err, data) {
+           if(err) {
+               callback(err,data);
+           } else {
+               return
+           }
+        })
+    }
+  }
 module.exports = {
     pageQuery: pageQuery,
-    manyQuery: manyQuery
+    manyQuery: manyQuery,
+    batchDelete: batchDelete
 };

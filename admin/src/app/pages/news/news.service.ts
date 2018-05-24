@@ -17,6 +17,8 @@ export class NewsService {
   public newStatus = '0';
   // 分类全部选中状态
   public selectedAll = false;
+  // 新闻选中全选
+  public checkedAll = false;
   constructor(private http: HttpClient,
               private nzModal: NzModalService,
               private nzMessage: NzMessageService) {
@@ -77,6 +79,7 @@ export class NewsService {
         this.newsList = [];
       }
       this.loading = false;
+      this.checkedAll = false;
     });
   }
   /**
@@ -118,11 +121,14 @@ export class NewsService {
    */
   public deletdMany() {
     const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
-    let typeData = this.newsList.filter((ele) => ele.checked);
-    typeData = typeData.map((ele) => {
-      return ele._id;
+    let typeData = [];
+    this.newsList.map((ele) => {
+      if (ele.checked === true) {
+        typeData.push(ele._id);
+      }
     });
     console.log(typeData);
+    return this.http.post(API_LIST.BATCH_DELETE_NEWS, tranformParams(typeData), {headers});
   }
 
   /**
@@ -147,5 +153,16 @@ export class NewsService {
       ...param
     };
     return this.http.post(API_LIST.UPDATE_NEWS, tranformParams(params), { headers });
+  }
+
+  /**
+   * 复制新闻
+   */
+  public copyNews(id) {
+    const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+    const params = {
+      id: id,
+    };
+    return this.http.post(API_LIST.COPY_ONE_NEWS, tranformParams(params), { headers });
   }
 }

@@ -13,6 +13,7 @@ export class UserListService {
   public optionParams = {};
   public idx = 'userName';
   public idx_value = '';
+  public checkedAll = false;
   constructor(private http: HttpClient,
               private nzModal: NzModalService) {
   }
@@ -61,10 +62,13 @@ export class UserListService {
    */
   public deletdMany() {
     const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
-    let userData = this.userList.filter((ele) => ele.checked);
-    userData = userData.map((ele) => {
-      return ele._id;
+    let typeData = [];
+    this.userList.map((ele) => {
+      if (ele.checked === true) {
+        typeData.push(ele._id);
+      }
     });
-    console.log(userData);
+    console.log(typeData);
+    return this.http.post(API_LIST.BATCH_DELET_USER, tranformParams(typeData), {headers});
   }
 }

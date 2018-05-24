@@ -4,12 +4,9 @@
   </ul>
 
   <nz-header>
-    <nz-popconfirm [nzTitle]="'确定删除这些留言吗？'">
-      <button nz-popconfirm nz-button [nzType]="'default'">
-        <i class="anticon anticon-delete"></i> 删除
-      </button>
-    </nz-popconfirm>
-
+    <button nz-button [nzType]="'default'" (click)="delete()">
+      <i class="anticon anticon-delete"></i> 删除
+    </button>
   </nz-header>
 
   <nz-content>
@@ -30,7 +27,7 @@
       <thead nz-thead>
       <tr>
         <th nz-th nzCheckbox>
-          <label nz-checkbox [(ngModel)] = "checkedAll" (ngModelChange) = "toggleCheckedAll()"></label>
+          <label nz-checkbox [(ngModel)] = "commentsService.checkedAll" (ngModelChange) = "toggleCheckedAll()"></label>
         </th>
         <th nz-th>评论内容</th>
         <th nz-th>评论文章</th>
@@ -45,14 +42,14 @@
           <td style="text-align: center;">
             <label nz-checkbox [(ngModel)]="data.checked" (ngModelChange) = "refreshStatus()"></label>
           </td>
-          <td>{{data.commentContent}}</td>
-          <td>{{data.newsId}}</td>
+          <td style="width: 300px">{{data.commentContent}}</td>
+          <td>{{data.newsId.title}}</td>
           <td>{{data.userName}}</td>
           <td>{{data.createTime}}</td>
           <td>
-            <a *ngIf="data.status === '0'">通过审核</a>
+            <a *ngIf="data.status === '0'" (click)="updateStatis(data._id)">通过审核</a>
             <span *ngIf="data.status === '0'" nz-table-divider></span>
-            <a>删除</a>
+            <a (click)="delete(data._id)">删除</a>
           </td>
         </tr>
       </ng-container>

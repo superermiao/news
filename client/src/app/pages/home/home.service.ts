@@ -24,13 +24,38 @@ export class HomeService {
   public pageSize = 10;
   public optionParams = {};
   // 总数据
-  public count = '';
+  public count = 0;
   // 评论的page
   public commentPage = 1;
   // 评论的总数
   public commentTotal = 0;
   // 评论的数组
   public commentArray = [];
+  /**
+   * 根据页数获取评论
+   */
+  public getCommentList(id) {
+    const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+    const params = {
+      page: this.commentPage,
+      page_size: 5,
+      newsId: id
+    };
+    this.http.post('http://127.0.0.1:3000/api/client/show-comment', tranformParams(params), { headers }).subscribe((res: any) => {
+      if (res.status === '0') {
+        this.commentArray = res.data.map((item) => {
+          // 防止用户密码泄露
+          item.userPwd = '';
+          return item;
+        });
+        this.commentTotal = res.count;
+        console.log(res.data);
+      } else {
+        this.nzModal.warning({title: '获取列表失败', content: res.data});
+        this.commentArray = [];
+      }
+    });
+  }
   /**
    * 获取分类列表
    * @returns {Observable<Object>}

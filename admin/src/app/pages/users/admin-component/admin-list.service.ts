@@ -13,6 +13,8 @@ export class AdminListService {
   public optionParams = {};
   public idx = 'adminName';
   public idx_value = '';
+  // 全选
+  public checkedAll = false;
   constructor(private http: HttpClient,
               private nzModal: NzModalService) {
   }
@@ -61,11 +63,14 @@ export class AdminListService {
    */
   public deletdMany() {
     const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
-    let adminData = this.adminList.filter((ele) => ele.checked);
-    adminData = adminData.map((ele) => {
-      return ele._id;
+    let typeData = [];
+    this.adminList.map((ele) => {
+      if (ele.checked === true) {
+        typeData.push(ele._id);
+      }
     });
-    console.log(adminData);
+    console.log(typeData);
+    return this.http.post(API_LIST.BATCH_DELET_ADMIN, tranformParams(typeData), {headers});
   }
 
   /**

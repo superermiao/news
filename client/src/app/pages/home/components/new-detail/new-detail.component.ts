@@ -61,6 +61,7 @@ export class NewDetailComponent  implements OnInit {
             this.origin = res.data.origin ? res.data.origin : '猫眼新闻';
             this.title = res.data.title;
             this.time = res.data.update;
+            this.homeService.getCommentList(this.dataId);
           } else {
             this.nzMessage.error('查询失败');
           }
@@ -98,6 +99,13 @@ export class NewDetailComponent  implements OnInit {
         }
       });
     }
+  }
+
+  /**
+   * 获取评论
+   */
+  public getCommentList() {
+    this.homeService.getCommentList(this.dataId);
   }
 
 }

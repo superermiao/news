@@ -26,6 +26,14 @@ const API_LIST = {
   /**
    *根据ID修改新闻
    */
-  UPDATE_NEWS: 'http://127.0.0.1:3000/api/admin/update-news'
+  UPDATE_NEWS: 'http://127.0.0.1:3000/api/admin/update-news',
+  /**
+   * 单条复制新闻
+   */
+  COPY_ONE_NEWS: 'http://127.0.0.1:3000/api/admin/copy-one-news',
+  /**
+   * 批量删除新闻
+   */
+  BATCH_DELETE_NEWS: 'http://127.0.0.1:3000/api/admin/batch-delete-news'
 };
 export  default API_LIST;

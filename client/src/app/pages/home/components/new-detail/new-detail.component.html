@@ -13,7 +13,7 @@
     </div>
     <div class="detail-wrap">
       <div class="title">
-        <span style="font-size: 20px;">{{title}}</span>
+        <span style="font-size: 20px;font-weight: bold;">{{title}}</span>
         <br>
         <span style="padding-right: 10px;color: #888;">{{time}}</span>
         <span style="color: #888;"> 来源：{{origin}}</span>
@@ -22,7 +22,7 @@
       <div class="comment-all">
         <div class="c-comment-header clear">
           <div class="left c-opinion"><em class="c-line"></em>我来说两句</div>
-          <div class="right"><span class="c-num-red">5</span>条评论</div>
+          <div class="right"><span class="c-num-red">{{homeService.commentTotal}}</span>条评论</div>
         </div>
         <div class="remark-box">
           <div>
@@ -41,23 +41,25 @@
             <div *ngFor="let item of homeService.commentArray">
               <div nz-row style="border-bottom: 1px solid #ccc;padding-bottom: 5px; padding-top: 5px">
                 <div nz-col [nzSm]="3" [nzXs]="3" class="comment-avatar">
-                  <img src="../../../../../assets/img/cat.jpg" style="width: 50px;height: 50px">
+                  <img src="{{item.userId.userAvatar ? item.userId.userAvatar : '../../../../../assets/img/avater.gif'}}" style="width: 50px;height: 50px">
                 </div>
                 <div nz-col [nzSm]="17" [nzXs]="17">
                   <div class="comment">
                     <div style="line-height: 20px">
-                      <p><span style="font-size: 15px">super喵星人</span><!--<span>很累很累很累</span>--></p>
-                      <p>这个时候我好困啊这个时候我好困啊这个时候我好困啊这个时候我好困啊这个时候我好困啊这个时候我好困啊</p>
-                      <p style="color: #ccc;">2018.05.23</p>
+                      <p><span style="font-size: 15px">{{item.userId.userName}}</span><!--<span>很累很累很累</span>--></p>
+                      <p>{{item.commentContent}}</p>
+                      <p style="color: #ccc;">{{item.createTime}}</p>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-            <div style="padding: 20px 0px">
+            <div style="padding: 20px 0px" *ngIf="homeService.commentTotal >= 5">
               <nz-pagination [(nzPageIndex)]="homeService.commentPage"
+                             (nzPageIndexChange)="getCommentList()"
                              [nzTotal]="homeService.commentTotal"
                              [nzSize]="'large'"
+                             [nzPageSize] = "5"
                              nzShowQuickJumper>
               </nz-pagination>
             </div>

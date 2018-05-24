@@ -10,6 +10,14 @@ const API_LIST = {
   /**
    * 更新某条评论
    */
-  UPDATE_ONE_COMMENT: 'http://127.0.0.1:3000/api/admin/update-comment-status'
+  UPDATE_ONE_COMMENT: 'http://127.0.0.1:3000/api/admin/update-comment-status',
+  /**
+   * 批量删除
+   */
+  BATCH_COMMENTS: 'http://127.0.0.1:3000/api/admin/batch-delete-comment',
+  /**
+   * 根据ID查找新闻
+   */
+  FIND_ONE_NEWS: 'http://127.0.0.1:3000/api/admin/find-one-news',
 };
 export  default API_LIST;

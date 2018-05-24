@@ -10,11 +10,11 @@
           <div class="news-box">
             <div class="content-box" (click)="getNewDetail(item._id)">
               <div class="img-box">
-                <img src="{{getImg(item.content)}}">
+                <img src="{{item.newsImg}}">
               </div>
               <div class="txt-box">
-                <h6>{{item.title}}</h6>
-                <P>{{getName(item.excerpt, item.content)}}</P>
+                <span>{{item.title}}</span>
+                <p>{{getName(item.excerpt, item.content)}}</p>
               </div>
             </div>
             <div class="footer-box">

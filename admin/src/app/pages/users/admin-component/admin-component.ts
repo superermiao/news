@@ -48,14 +48,14 @@ export class AdminComponent implements OnInit {
    * 全选影响单选
    */
   public toggleCheckedAll() {
-    this.adminListService.adminList.forEach((ele) => (ele.checked = this.checkedAll));
+    this.adminListService.adminList.forEach((ele) => (ele.checked = this.adminListService.checkedAll));
   }
 
   /**
    * 单选影响全选
    */
   public refreshStatus() {
-    this.checkedAll = this.adminListService.adminList.every((ele) => ele.checked);
+    this.adminListService.checkedAll = this.adminListService.adminList.every((ele) => ele.checked);
   }
 
   /**
@@ -66,6 +66,13 @@ export class AdminComponent implements OnInit {
     if (id) {
       this.adminListService.deleteById(id).subscribe((res: any) => {
         if (res.status === '0') {
+          // 当当前页数不为1，并且数据删除完，则应该跳到上一页
+          if ((this.adminListService.checkedAll && this.adminListService.adminList.length >= 1) ||
+            (!this.adminListService.checkedAll && this.adminListService.adminList.length === 1)) {
+            if (this.adminListService.page > 1) {
+              this.adminListService.page--;
+            }
+          }
           this.nzMessage.success('删除成功');
           this.adminListService.getAdminList();
         } else {
@@ -73,7 +80,21 @@ export class AdminComponent implements OnInit {
         }
       });
     } else {
-      this.adminListService.deletdMany();
+      this.adminListService.deletdMany().subscribe((res: any) => {
+        if (res.status === '0') {
+          // 当当前页数不为1，并且数据删除完，则应该跳到上一页
+          if ((this.adminListService.checkedAll && this.adminListService.adminList.length >= 1) ||
+            (!this.adminListService.checkedAll && this.adminListService.adminList.length === 1)) {
+            if (this.adminListService.page > 1) {
+              this.adminListService.page--;
+            }
+          }
+          this.nzMessage.success('删除管理员成功');
+          this.adminListService.getAdminList();
+        } else {
+          this.nzModal.warning({title: '删除管理员失败', content: res.data});
+        }
+      });
     }
   }
 }

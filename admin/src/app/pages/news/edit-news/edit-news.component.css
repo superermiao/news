@@ -52,3 +52,40 @@ input[type="password"]{
 .edit-content nz-select{
   width: 180px;
 }
+.add-pic {
+  width: 120px;
+  height: 120px;
+  border: 1px solid #D5D5DE;
+  color: #D5D5DE;
+  text-align: center;
+  position: relative;
+}
+.add-pic .anticon-plus {
+  display: block;
+  font-size: 30px;
+  margin: 30px auto 5px;
+}
+.add-pic img {
+  max-width: 100%;
+  max-height: 100%;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+}
+.upload-btn {
+  float: left;
+  position: relative;
+}
+.upload-btn input {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  display: block;
+  opacity: 0;
+  top: 0;
+  left: 0;
+  cursor: pointer;
+}

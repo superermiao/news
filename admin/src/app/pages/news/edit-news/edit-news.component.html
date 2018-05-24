@@ -51,6 +51,31 @@
       </div>
 
       <div nz-row class="form-item">
+        <div nz-col [nzSpan]="3" class="more-info-label">
+          新闻简介图
+        </div>
+        <div nz-col [nzSpan]="21">
+          <div class="add-pic"  *ngIf="!newsImg" id="addPic">
+            <i class="anticon anticon-plus"></i>
+            暂无图片
+          </div>
+          <div class="add-pic" *ngIf="newsImg">
+            <img src="{{newsImg}}" alt="">
+          </div>
+          <div style="margin-top: 10px;margin-left: 20px;cursor: pointer">
+            <button class="upload-btn" nz-button [nzType]="'primary'">
+              <input
+                (change)="addNewsImg($event)"
+                type="file"
+                name="file"
+                id = "file"
+                accept="image/gif,image/jpg,image/jpeg,image/bmp,image/png"/>上传图片
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div nz-row class="form-item">
         <div nz-col [nzSpan]="3" class="more-info-label necessary">
           详细内容
         </div>

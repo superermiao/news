@@ -37,6 +37,9 @@ const NewSchema = new Schema({
     },
     "status": {
         type: String
+    },
+    "newsImg": {
+        type: String
     }
 });
 const NewsModel = db.model('new',NewSchema);

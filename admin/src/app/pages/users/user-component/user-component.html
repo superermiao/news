@@ -47,7 +47,7 @@
         <thead nz-thead>
         <tr>
           <th nz-th nzCheckbox>
-            <label nz-checkbox [(ngModel)] = "checkedAll" (ngModelChange) = "toggleCheckedAll()"></label>
+            <label nz-checkbox [(ngModel)] = "userListService.checkedAll" (ngModelChange) = "toggleCheckedAll()"></label>
           </th>
           <th nz-th>用户名</th>
           <th nz-th>手机号</th>

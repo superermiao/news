@@ -8,7 +8,6 @@ import {NzMessageService, NzModalService} from 'ng-zorro-antd';
   templateUrl: './categories.component.html'
 })
 export class CategoriesComponent implements OnInit {
-  public checkedAll = false;
   constructor(private router: Router,
               public categoriesService: CategoriesService,
               private nzModal: NzModalService,
@@ -30,14 +29,14 @@ export class CategoriesComponent implements OnInit {
    * 全选影响单选
    */
   public toggleCheckedAll() {
-    this.categoriesService.typeList.forEach((ele) => (ele.checked = this.checkedAll));
+    this.categoriesService.typeList.forEach((ele) => (ele.checked = this.categoriesService.checkedAll));
   }
 
   /**
    * 单选影响全选
    */
   public refreshStatus() {
-    this.checkedAll = this.categoriesService.typeList.every((ele) => ele.checked);
+    this.categoriesService.checkedAll = this.categoriesService.typeList.every((ele) => ele.checked);
   }
 
   /**
@@ -48,14 +47,35 @@ export class CategoriesComponent implements OnInit {
     if (id) {
       this.categoriesService.deleteById(id).subscribe((res: any) => {
         if (res.status === '0') {
-          this.nzMessage.success('登录成功');
+          // 当当前页数不为1，并且数据删除完，则应该跳到上一页
+          if ((this.categoriesService.checkedAll && this.categoriesService.typeList.length >= 1) ||
+            (!this.categoriesService.checkedAll && this.categoriesService.typeList.length === 1)) {
+            if (this.categoriesService.page > 1) {
+              this.categoriesService.page--;
+            }
+          }
+          this.nzMessage.success('删除分类成功');
           this.categoriesService.getTypeList();
         } else {
           this.nzModal.warning({title: '删除失败', content: res.data});
         }
       });
     } else {
-      this.categoriesService.deletdMany();
+      this.categoriesService.deletdMany().subscribe((res: any) => {
+        if (res.status === '0') {
+          // 当当前页数不为1，并且数据删除完，则应该跳到上一页
+          if ((this.categoriesService.checkedAll && this.categoriesService.typeList.length >= 1) ||
+            (!this.categoriesService.checkedAll && this.categoriesService.typeList.length === 1)) {
+            if (this.categoriesService.page > 1) {
+              this.categoriesService.page--;
+            }
+          }
+          this.nzMessage.success('删除分类成功');
+          this.categoriesService.getTypeList();
+        } else {
+          this.nzModal.warning({title: '删除分类失败', content: res.data});
+        }
+      });
     }
   }
 }

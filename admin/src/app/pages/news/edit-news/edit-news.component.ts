@@ -15,6 +15,7 @@ export class EditNewsComponent implements OnInit {
   public content  = '';
   public origin   = '';
   public title    = '';
+  public newsImg = '';
   constructor(public newsService: NewsService,
               private nzModal: NzModalService,
               private activeRouter: ActivatedRoute,
@@ -59,6 +60,7 @@ export class EditNewsComponent implements OnInit {
             this.content = res.data.content;
             this.origin = res.data.origin;
             this.title = res.data.title;
+            this.newsImg = res.data.newsImg;
           } else {
             this.nzMessage.error('查询失败');
           }
@@ -78,6 +80,7 @@ export class EditNewsComponent implements OnInit {
       content: this.content ,
       origin: this.origin  ,
       title: this.title   ,
+      newsImg: this.newsImg
     };
     if (!this.dataId) {
       this.newsService.addNews(params).subscribe((res: any) => {
@@ -95,6 +98,38 @@ export class EditNewsComponent implements OnInit {
           this.nzModal.success({title: '修改失败', content: res.data});
         }
       });
+    }
+  }
+
+  /**
+   * 添加图片
+   */
+  public addNewsImg($event) {
+    /*input_file：文件按钮对象*/
+    /*get_data: 转换成功后执行的方法*/
+    if ( typeof(FileReader) === 'undefined' ) {
+      alert('抱歉，你的浏览器不支持 FileReader，不能将图片转换为Base64，请使用现代浏览器操作！');
+    } else {
+      try {
+        /*图片转Base64 核心代码*/
+        const file = $event.target.files[0];
+        console.log(file);
+        // 这里我们判断下类型如果不是图片就返回 去掉就可以上传任意文件
+        if (!/image\/\w+/.test(file.type)) {
+          alert('请确保文件为图像类型');
+          return false;
+        }
+        const reader = new FileReader();
+        let that = this;
+        reader.onload = function() {
+          console.log('图片转换:', this.result);
+          that.newsImg = this.result;
+        };
+        console.log(this.newsImg);
+        reader.readAsDataURL(file);
+      } catch (e) {
+        console.log('ss', e.toString());
+      }
     }
   }
 }

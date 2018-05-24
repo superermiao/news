@@ -14,7 +14,7 @@ export class UserComponent implements OnInit {
   ];
   public searchOption = 'userName';
   public  searchValue = '';
-  public checkedAll = false;
+  // public checkedAll = false;
   constructor(public userListService: UserListService,
               private nzMessage: NzMessageService,
               private nzModal: NzModalService){}
@@ -31,24 +31,31 @@ export class UserComponent implements OnInit {
    * 全选影响单选
    */
   public toggleCheckedAll() {
-    this.userListService.userList.forEach((ele) => (ele.checked = this.checkedAll));
+    this.userListService.userList.forEach((ele) => (ele.checked = this.userListService.checkedAll));
   }
 
   /**
    * 单选影响全选
    */
   public refreshStatus() {
-    this.checkedAll = this.userListService.userList.every((ele) => ele.checked);
+    this.userListService.checkedAll = this.userListService.userList.every((ele) => ele.checked);
   }
 
   /**
-   * 单个删除或者批量删除分类
+   * 单个删除或者批量删除用户
    * @param id
    */
   public delete(id?) {
     if (id) {
       this.userListService.deleteById(id).subscribe((res: any) => {
         if (res.status === '0') {
+          // 当当前页数不为1，并且数据删除完，则应该跳到上一页
+          if ((this.userListService.checkedAll && this.userListService.userList.length >= 1) ||
+            (!this.userListService.checkedAll && this.userListService.userList.length === 1)) {
+            if (this.userListService.page > 1) {
+              this.userListService.page--;
+            }
+          }
           this.nzMessage.success('删除成功');
           this.userListService.getUserList();
         } else {
@@ -56,7 +63,21 @@ export class UserComponent implements OnInit {
         }
       });
     } else {
-      this.userListService.deletdMany();
+      this.userListService.deletdMany().subscribe((res: any) => {
+        if (res.status === '0') {
+          // 当当前页数不为1，并且数据删除完，则应该跳到上一页
+          if ((this.userListService.checkedAll && this.userListService.userList.length >= 1) ||
+            (!this.userListService.checkedAll && this.userListService.userList.length === 1)) {
+            if (this.userListService.page > 1) {
+              this.userListService.page--;
+            }
+          }
+          this.nzMessage.success('删除用户成功');
+          this.userListService.getUserList();
+        } else {
+          this.nzModal.warning({title: '删除用户失败', content: res.data});
+        }
+      });
     }
   }
 }

@@ -11,6 +11,7 @@ export class CategoriesService {
   public typeList = [];
   public loading = false;
   public optionParams = {};
+  public checkedAll = false;
   constructor( private http: HttpClient,
                private nzModal: NzModalService ) {}
   /**
@@ -36,6 +37,7 @@ export class CategoriesService {
         this.typeList = [];
       }
       this.loading = false;
+      this.checkedAll = false;
     });
   }
 
@@ -56,10 +58,13 @@ export class CategoriesService {
    */
   public deletdMany() {
     const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
-    let typeData = this.typeList.filter((ele) => ele.checked);
-    typeData = typeData.map((ele) => {
-      return ele._id;
+    let typeData = [];
+    this.typeList.map((ele) => {
+      if (ele.checked === true) {
+        typeData.push(ele._id);
+      }
     });
     console.log(typeData);
+    return this.http.post(API_LIST.BATCH_DELET_TYPE, tranformParams(typeData), {headers});
   }
 }

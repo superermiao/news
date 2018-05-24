@@ -66,6 +66,7 @@ router.post('/add-type',function (req, res, next) {
            categoryName: req.body.categoryName,
            categoryDate: Date.now()
        };
+       console.log('当前时间', params.categoryDate);
        CategoriesModel.create(params,function (err, data) {
             if(err){
                 res.json({
@@ -371,7 +372,8 @@ router.post('/add-news',function (req,res,next) {
             origin : req.body.origin  ,
             title  : req.body.title,
             status: '1',
-            update: Date.now()
+            update: Date.now(),
+            newsImg: req.body.newsImg
         };
         NewsModel.create(params,function (err, data) {
             if(err){
@@ -456,8 +458,7 @@ router.post('/news-list',function (req,res,next) {
         if (req.body.status) {
             params['status'] = req.body.status;
         }
-        dbHelper.pageQuery(page, pageSize, NewsModel, '', params, {newsDate: 'desc'},function (err, data) {
-            console.log('得到的数据', data);
+        dbHelper.pageQuery(page, pageSize, NewsModel, '', params, {update: -1},function (err, data) {
             if(err) {
                 res.json({
                     status: '1',
@@ -517,7 +518,8 @@ router.post('/update-news',function (req,res,next) {
             origin : req.body.origin  ,
             title  : req.body.title,
             status: '1',
-            update: Date.now()
+            update: Date.now(),
+            newsImg: req.body.newsImg
         };
         NewsModel.findByIdAndUpdate(id,params,{new:true},function (err, data) {
             if(err){
@@ -539,21 +541,60 @@ router.post('/update-news',function (req,res,next) {
         });
     }
 });
-/*复制新闻*/
-/*router.post('copy-one-news',function () {
-
-});*/
+/*单条复制新闻*/
+router.post('/copy-one-news',function (req,res,next) {
+    if(req.body) {
+        var id = req.body.id;
+        NewsModel.findById(id,function (err,data) {
+            if (err) {
+                res.json({
+                    status: '1',
+                    data: err.message
+                });
+            } else {
+                var param = {
+                    category: data.category,
+                    author: data.author ,
+                    excerpt: data.excerpt ,
+                    content: data.content ,
+                    origin : data.origin  ,
+                    title  : data.title,
+                    status: '1',
+                    newsImg: data.newsImg,
+                    update: Date.now()
+                };
+                NewsModel.create(param,function (err,doc) {
+                    if (err) {
+                        res.json({
+                            status: '1',
+                            data: err.message
+                        });
+                    } else {
+                        res.json({
+                            status: '0',
+                            data: doc
+                        });
+                    }
+                });
+            }
+        });
+    } else {
+        res.json({
+            status: '1',
+            data: '遭遇未知错误'
+        });
+    }
+});
 /*根据页数查看评论*/
 router.post('/comment-list',function (req,res, next) {
     if (req.body){
         var page = parseInt(req.body.page) || 1;
-        var pageSize = parseInt(req.body.page_size)|| 5;
+        var pageSize = parseInt(req.body.page_size)|| 10;
         var params = {};
         if (req.body.status) {
             params['status'] = req.body.status;
         }
-        dbHelper.pageQuery(page, pageSize, CommentModel, '', params, {createTime: 'desc'},function (err, data) {
-            console.log('得到的数据', data);
+        dbHelper.pageQuery(page, pageSize, CommentModel, 'newsId', params, {createTime: 'desc'},function (err, data) {
             if(err) {
                 res.json({
                     status: '1',
@@ -578,11 +619,161 @@ router.post('/comment-list',function (req,res, next) {
 });
 /*审核评论*/
 router.post('/update-comment-status', function (req, res, next) {
-
+    if (req.body){
+        var id = req.body.id;
+        var status = req.body.status;
+        CommentModel.findByIdAndUpdate(id,{status: status}, {new: true}, function (err,data) {
+            if (err) {
+                res.json({
+                    status: '1',
+                    data: err.message
+                });
+            } else {
+                res.json({
+                    status: '0',
+                    data: data
+                });
+            }
+        })
+    } else {
+        res.json({
+            status: '1',
+            data: '遭遇未知错误'
+        });
+    }
 });
 /*删除单条评论*/
 router.post('/delete-one-comment', function (req, res, next) {
-
+    if(req.body) {
+        var id = req.body.id;
+        CommentModel.findByIdAndRemove(id,function (err,data) {
+            if (err) {
+                res.json({
+                    status: '1',
+                    data: err.message
+                });
+            } else {
+                res.json({
+                    status: '0',
+                    data: data
+                });
+            }
+        })
+    } else {
+        res.json({
+            status: '1',
+            data: '遭遇未知错误'
+        });
+    }
 });
-
+/*批量删除评论*/
+router.post('/batch-delete-comment', function (req, res, next) {
+    if (req.body) {
+      var array = [];
+      for(var item in req.body) {
+          array.push(req.body[item]);
+      }
+      CommentModel.remove({_id: {$in: array}},function (err, data) {
+          if(err) {
+              res.json({
+                  status: '1',
+                  data: err.message
+              });
+          } else if (data) {
+              res.json({
+                  status: '0',
+                  data: data
+              });
+          }
+      });
+    }
+});
+/*批量删除新闻*/
+router.post('/batch-delete-news', function (req, res, next) {
+    if (req.body) {
+        var array = [];
+        for(var item in req.body) {
+            array.push(req.body[item]);
+        }
+        NewsModel.remove({_id: {$in: array}},function (err, data) {
+            if(err) {
+                res.json({
+                    status: '1',
+                    data: err.message
+                });
+            } else if (data) {
+                res.json({
+                    status: '0',
+                    data: data
+                });
+            }
+        });
+    }
+});
+/*批量删除用户*/
+router.post('/batch-delete-user', function (req, res, next) {
+    if (req.body) {
+        var array = [];
+        for(var item in req.body) {
+            array.push(req.body[item]);
+        }
+        UserModal.remove({_id: {$in: array}},function (err, data) {
+            if(err) {
+                res.json({
+                    status: '1',
+                    data: err.message
+                });
+            } else if (data) {
+                res.json({
+                    status: '0',
+                    data: data
+                });
+            }
+        });
+    }
+});
+/*批量删除管理员*/
+router.post('/batch-delete-admin', function (req, res, next) {
+    if (req.body) {
+        var array = [];
+        for(var item in req.body) {
+            array.push(req.body[item]);
+        }
+        AdminModel.remove({_id: {$in: array}},function (err, data) {
+            if(err) {
+                res.json({
+                    status: '1',
+                    data: err.message
+                });
+            } else if (data) {
+                res.json({
+                    status: '0',
+                    data: data
+                });
+            }
+        });
+    }
+});
+/*批量删除分类*/
+router.post('/batch-delete-category', function (req, res, next) {
+    if (req.body) {
+        var array = [];
+        for(var item in req.body) {
+            array.push(req.body[item]);
+        }
+        CategoriesModel.remove({_id: {$in: array}},function (err, data) {
+            if(err) {
+                res.json({
+                    status: '1',
+                    data: err.message
+                });
+            } else if (data) {
+                res.json({
+                    status: '0',
+                    data: data
+                });
+            }
+        });
+    }
+});
 module.exports = router;

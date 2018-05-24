@@ -18,6 +18,10 @@ const API_LIST = {
   /**
    * 单个删除
    */
-  DELETE_ONE_TYPE: 'http://127.0.0.1:3000/api/admin/delete-one'
+  DELETE_ONE_TYPE: 'http://127.0.0.1:3000/api/admin/delete-one',
+  /**
+   * 批量删除
+   */
+  BATCH_DELET_TYPE: 'http://127.0.0.1:3000/api/admin/batch-delete-category'
 };
 export  default API_LIST;
