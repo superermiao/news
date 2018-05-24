@@ -1,0 +1,59 @@
+<nz-layout class="wrap">
+  <header [name]="userName" [showLogin]="showLogin" [img]="avatar"></header>
+  <nz-layout>
+    <nz-sider [nzWidth]="150" style="background-color: #f4f5f6;margin-left: 50px">
+      <nav></nav>
+    </nz-sider>
+    <nz-layout class="content-wrap">
+      <div style="margin: 20px 65px 0px 30px;">
+        <div *ngFor="let item of homeService.newsList" style="width: 680px">
+          <div class="news-box">
+            <div class="content-box" (click)="getNewDetail(item._id)">
+              <div class="img-box">
+                <img src="{{getImg(item.content)}}">
+              </div>
+              <div class="txt-box">
+                <h6>{{item.title}}</h6>
+                <P>{{getName(item.excerpt, item.content)}}</P>
+              </div>
+            </div>
+            <div class="footer-box">
+              <span>作者：{{getName(item.author, 'admin')}}</span>
+              <span style="padding-left: 20px">日期：{{item.update}}</span>
+            </div>
+          </div>
+         <!-- <img src="../../../assets/img/avater.gif">-->
+         <!-- <new-list [author]="getName(item.author, 'admin')"
+                    [time]="item.update"
+                    [excerpt]="getName(item.excerpt, item.content)"
+                    [title]="item.title"
+                    (toDetail) = "getNewDetail(item._id)"
+          ></new-list>-->
+        </div>
+        <div style="padding: 20px 0px">
+          <nz-pagination [(nzPageIndex)]="homeService.page"
+                         [nzTotal]="homeService.count"
+                         [(nzPageSize)]="homeService.pageSize"
+                         [nzSize]="'large'"
+                         nzShowSizeChanger
+                         nzShowQuickJumper>
+          </nz-pagination>
+        </div>
+      </div>
+      <div style="width: 340px; margin-top: 20px">
+       <!-- <ul nz-menu [nzMode]="'vertical'" style="text-align: center;background-color: #f4f5f6;">
+          <li  nz-menu-item [nzSelected]="homeService.selectedAll">推荐</li>
+          <div *ngFor="let category of homeService.categoriesFont" >
+            <li nz-menu-item>
+              <span>{{category.categoryName}}</span>
+            </li>
+          </div>
+        </ul>-->
+        <!--<nz-calendar nzCard></nz-calendar>-->
+        <div [ngStyle]="{ width: '340px', border: '1px solid #d9d9d9', borderRadius: '4px' }">
+          <nz-calendar nzCard></nz-calendar>
+        </div>
+      </div>
+    </nz-layout>
+  </nz-layout>
+</nz-layout>

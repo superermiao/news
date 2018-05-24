@@ -114,6 +114,18 @@ export class NewsService {
   }
 
   /**
+   * 批量删除
+   */
+  public deletdMany() {
+    const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+    let typeData = this.newsList.filter((ele) => ele.checked);
+    typeData = typeData.map((ele) => {
+      return ele._id;
+    });
+    console.log(typeData);
+  }
+
+  /**
    * 根据id查找新闻
    * @param id
    */

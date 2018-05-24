@@ -1,0 +1,189 @@
+<nz-layout class="wrap">
+  <header [name]="name" [showLogin]="showLogin" [img]="avatar"></header>
+  <nz-layout style="padding: 20px 65px 20px 50px;height: 100%;">
+    <div class="header">
+      <nz-breadcrumb style="font-size: 15px">
+        <nz-breadcrumb-item>
+          <a routerLink="/home" style="cursor: pointer">首页</a>
+        </nz-breadcrumb-item>
+        <nz-breadcrumb-item>
+          <a>个人中心</a>
+        </nz-breadcrumb-item>
+      </nz-breadcrumb>
+    </div>
+    <div class="detail-wrap">
+      <div class="content-header">
+        <ul nz-menu [nzMode]="'horizontal'">
+          <li nz-menu-item (click)="changeMode(1)" [nzSelected]="mode === 1"><i class="anticon anticon-setting"></i> 基本信息</li>
+          <li nz-menu-item (click)="changeMode(2)" [nzSelected]="mode === 2"><i class="anticon anticon-mail"></i> 密码修改</li>
+        </ul>
+      </div>
+      <div style="padding: 20px" *ngIf="mode === 1">
+        <form  [formGroup]="validateForm" nz-form (onSubmit)="submitForm()">
+          <div nz-form-item nz-row>
+            <div nz-form-label nz-col [nzSm]="3" [nzXs]="3">
+              <label for="userName">用户名</label>
+            </div>
+            <div nz-form-control nz-col [nzSm]="8" [nzXs]="8"  nzHasFeedback [nzValidateStatus]="validateForm.controls['userName']">
+              <nz-input [nzSize]="'large'" formControlName="userName" [nzId]="'userName'" [nzPlaceHolder]="'请输入用户名'"></nz-input>
+              <div nz-form-explain *ngIf="validateForm.get('userName').dirty && validateForm.get('userName').errors || validateForm.get('userName').pending">
+                <ng-container *ngIf="validateForm.get('userName').hasError('required')">
+                  请输入用户名
+                </ng-container>
+              </div>
+            </div>
+          </div>
+
+          <div nz-form-item nz-row>
+            <div nz-form-label nz-col [nzSm]="3" [nzXs]="3">
+              <label for="userTel">手机</label>
+            </div>
+            <div nz-form-control nz-col [nzSm]="8" [nzXs]="8"  nzHasFeedback [nzValidateStatus]="validateForm.controls['userTel']">
+              <nz-input [nzSize]="'large'" formControlName="userTel" [nzId]="'userTel'" [nzPlaceHolder]="'请输入手机号'"></nz-input>
+              <div nz-form-explain *ngIf="validateForm.get('userTel').dirty && validateForm.get('userTel').errors">
+                <ng-container *ngIf="validateForm.get('userTel').hasError('pattern')">
+                  请输入11位的合法的手机号
+                </ng-container>
+              </div>
+            </div>
+          </div>
+
+          <div nz-form-item nz-row>
+            <div nz-form-label nz-col [nzSm]="3" [nzXs]="3">
+              <label for="userEmail">邮箱</label>
+            </div>
+            <div nz-form-control nz-col [nzSm]="8" [nzXs]="8"  nzHasFeedback [nzValidateStatus]="validateForm.controls['userEmail']">
+              <nz-input [nzSize]="'large'" formControlName="userEmail" [nzId]="'userEmail'" [nzPlaceHolder]="'请输入邮箱'"></nz-input>
+              <div nz-form-explain *ngIf="validateForm.get('userEmail').dirty && validateForm.get('userEmail').errors">
+                <ng-container *ngIf="validateForm.get('userEmail').hasError('pattern')">
+                  请输入合法的邮箱
+                </ng-container>
+              </div>
+            </div>
+          </div>
+
+          <div nz-form-item nz-row>
+            <div nz-form-label nz-col [nzSm]="3" [nzXs]="3">
+              <label for="userSign">个性签名</label>
+            </div>
+            <div nz-form-control nz-col [nzSm]="11" [nzXs]="11"  nzHasFeedback [nzValidateStatus]="validateForm.controls['userSign']">
+              <nz-input [nzSize]="'large'" formControlName="userSign" [nzId]="'userSign'" [nzPlaceHolder]="'请编写个人签名'"></nz-input>
+            </div>
+          </div>
+
+          <div nz-form-item nz-row>
+            <div nz-form-label nz-col [nzSm]="3" [nzXs]="3">
+              <label for="userRealName">真实姓名</label>
+            </div>
+            <div nz-form-control nz-col [nzSm]="8" [nzXs]="8"  nzHasFeedback [nzValidateStatus]="validateForm.controls['userRealName']">
+              <nz-input [nzSize]="'large'" formControlName="userRealName" [nzId]="'userRealName'" [nzPlaceHolder]="'请输入真实姓名'"></nz-input>
+            </div>
+          </div>
+
+          <div nz-form-item nz-row>
+            <div nz-form-label nz-col [nzSm]="3" [nzXs]="3">头像：</div>
+            <div nz-form-control nz-col [nzSm]="11" [nzXs]="11">
+              <div class="add-pic"  *ngIf="!userAvatar" id="addPic">
+                <i class="anticon anticon-plus"></i>
+                暂无图片
+              </div>
+              <div class="add-pic" *ngIf="userAvatar">
+                <img src="{{userAvatar}}" alt="">
+              </div>
+              <div style="margin-top: 10px;margin-left: 20px;cursor: pointer">
+                <button class="upload-btn" nz-button [nzType]="'primary'">
+                  <input
+                    (change)="addAvatar($event)"
+                    type="file"
+                    name="file"
+                    id = "file"
+                    accept="image/gif,image/jpg,image/jpeg,image/bmp,image/png"/>上传图片
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div  nz-form-item nz-row>
+            <div nz-form-label nz-col [nzSm]="3" [nzXs]="3">
+              <label>密保问题</label>
+            </div>
+            <div nz-form-control nz-col [nzSm]="11" [nzXs]="11">
+              <nz-select formControlName="userQuestion" [nzPlaceHolder]="'请选择密保问题'">
+                <nz-option *ngFor="let data of profileService.questionList" [nzLabel]="data.question" [nzValue]="data.id"></nz-option>
+              </nz-select>
+            </div>
+          </div>
+
+          <div nz-form-item nz-row>
+            <div nz-form-label nz-col [nzSm]="3" [nzXs]="3">
+              <label for="userAnswer">密保答案</label>
+            </div>
+            <div nz-form-control nz-col [nzSm]="11" [nzXs]="11"  nzHasFeedback [nzValidateStatus]="validateForm.controls['userAnswer']">
+              <nz-input [nzSize]="'large'" formControlName="userAnswer" [nzId]="'userAnswer'" [nzPlaceHolder]="'请输入密保答案'"></nz-input>
+              <div nz-form-explain *ngIf="validateForm.get('userAnswer').dirty && validateForm.get('userAnswer').errors">
+                <ng-container *ngIf="validateForm.get('userAnswer').hasError('required')">
+                  请输入密保答案
+                </ng-container>
+              </div>
+            </div>
+          </div>
+
+          <div nz-form-item nz-row>
+            <div nz-form-label nz-col [nzSm]="3" [nzXs]="3">
+              <label for="userAddress">地址</label>
+            </div>
+            <div nz-form-control nz-col [nzSm]="11" [nzXs]="11"  nzHasFeedback [nzValidateStatus]="validateForm.controls['userAddress']">
+              <nz-input [nzSize]="'large'" formControlName="userAddress" [nzId]="'userAddress'" [nzPlaceHolder]="'请输入地址'"></nz-input>
+            </div>
+          </div>
+
+
+          <div nz-form-item nz-row>
+            <div nz-col [nzSm]="3" [nzXs]="3"></div>
+            <div nz-col [nzSm]="11" [nzXs]="11">
+              <button nz-button [nzType]="'primary'" class="login-btn" (click)="save()">
+                保存
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div *ngIf="mode === 2" style="padding: 20px">
+        <div>
+          <div  nz-row class="form-item">
+            <div  nz-col [nzSm]="4" [nzXs]="3" class="necessary form-item-label">
+              <label class="form-item-label">原始密码: </label>
+            </div>
+            <div  nz-col [nzSm]="10" [nzXs]="8">
+              <input nz-input type="text" [(ngModel)]="originPwd">
+            </div>
+          </div>
+          <div nz-row class="form-item">
+            <div nz-col [nzSm]="4" [nzXs]="3" class="necessary form-item-label">
+              <label  class="form-item-label">新密码: </label>
+            </div>
+            <div nz-col [nzSm]="10" [nzXs]="8" >
+              <input nz-input type="text" [(ngModel)]="newPwd">
+            </div>
+          </div>
+          <div nz-row class="form-item">
+            <div nz-col [nzSm]="4" [nzXs]="3" class="necessary form-item-label">
+              <label  >重复新密码: </label>
+            </div>
+            <div nz-col [nzSm]="10" [nzXs]="8">
+              <input nz-input type="text" [(ngModel)]="confirmNewPwd">
+            </div>
+          </div>
+          <div nz-row class="form-item">
+            <div nz-col nz-col [nzSm]="4" [nzXs]="3"></div>
+            <div nz-col nz-col [nzSm]="10" [nzXs]="8">
+              <button nz-button [nzType]="'primary'" (click)="updatePwd()">
+                修改
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nz-layout>
+</nz-layout>

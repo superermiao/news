@@ -13,7 +13,16 @@
   </nz-header>
 
   <nz-content>
-    <nz-table #nzTable [nzCustomNoResult]="true">
+    <nz-table #nzTable [nzCustomNoResult]="true" [nzAjaxData]="commentsService.commentList"
+              [nzShowSizeChanger]="commentsService.count >= 10"
+              [nzShowQuickJumper]="commentsService.count >= 10"
+              [nzIsPagination]="commentsService.count >= 10"
+              [nzLoading]="commentsService.loading"
+              [(nzPageIndex)]="commentsService.page"
+              [nzTotal]="commentsService.count"
+              [(nzPageSize)]="commentsService.pageSize"
+              (nzPageIndexChange)="commentsService.getCommentList()"
+              (nzPageSizeChange)="commentsService.getCommentList()">
       <div noResult class="table-no-result">
         <img src="http://img.zhichiwangluo.com/zcimgdir/album/file_5a324cdbb08af.jpg" alt="">
         <p>无相关数据</p>
@@ -21,17 +30,31 @@
       <thead nz-thead>
       <tr>
         <th nz-th nzCheckbox>
-          <label nz-checkbox></label>
+          <label nz-checkbox [(ngModel)] = "checkedAll" (ngModelChange) = "toggleCheckedAll()"></label>
         </th>
         <th nz-th>评论内容</th>
         <th nz-th>评论文章</th>
+        <th nz-th>评论用户</th>
         <th nz-th>评论时间</th>
         <th nz-th>操作</th>
       </tr>
       </thead>
       <tbody nz-tbody>
       <ng-container>
-        <tr></tr>
+        <tr nz-tbody-tr  *ngFor="let data of nzTable.data">
+          <td style="text-align: center;">
+            <label nz-checkbox [(ngModel)]="data.checked" (ngModelChange) = "refreshStatus()"></label>
+          </td>
+          <td>{{data.commentContent}}</td>
+          <td>{{data.newsId}}</td>
+          <td>{{data.userName}}</td>
+          <td>{{data.createTime}}</td>
+          <td>
+            <a *ngIf="data.status === '0'">通过审核</a>
+            <span *ngIf="data.status === '0'" nz-table-divider></span>
+            <a>删除</a>
+          </td>
+        </tr>
       </ng-container>
       </tbody>
     </nz-table>

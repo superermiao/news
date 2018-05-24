@@ -4,6 +4,7 @@ const CategoriesModel = require('../models/categories');
 const UserModal = require('../models/user');
 const AdminModel = require('../models/admin');
 const NewsModel = require('../models/news');
+const CommentModel = require('../models/comments');
 const dbHelper = require('../db/dbHelper');
 var crypto = require('crypto');
 var md5 = crypto.createHash('md5');
@@ -158,7 +159,7 @@ router.post('/delete-one',function (req,res,next) {
         });
     }
 });
-/*查询所有用户*/
+/*根据页数查询所有用户*/
 router.post('/user-list', function (req,res,next) {
     if (req.body){
         console.log(req.body);
@@ -277,7 +278,7 @@ router.post('/add-admin',function (req, res, next) {
     if(req.body) {
         var params = {
             adminName: req.body.adminName,
-            adminPwd: md5.update(req.body.adminPwd).digest('hex'),
+            adminPwd: req.body.adminPwd,
             adminTel: req.body.adminTel,
             adminEmail: req.body.adminEmail,
             role: req.body.role,
@@ -542,4 +543,46 @@ router.post('/update-news',function (req,res,next) {
 /*router.post('copy-one-news',function () {
 
 });*/
+/*根据页数查看评论*/
+router.post('/comment-list',function (req,res, next) {
+    if (req.body){
+        var page = parseInt(req.body.page) || 1;
+        var pageSize = parseInt(req.body.page_size)|| 5;
+        var params = {};
+        if (req.body.status) {
+            params['status'] = req.body.status;
+        }
+        dbHelper.pageQuery(page, pageSize, CommentModel, '', params, {createTime: 'desc'},function (err, data) {
+            console.log('得到的数据', data);
+            if(err) {
+                res.json({
+                    status: '1',
+                    data: err.message
+                });
+            } else{
+                res.json({
+                    status: '0',
+                    pageCount: data.pageCount,
+                    count: data.count,
+                    currentPage: data.currentPage,
+                    data: data.results
+                });
+            }
+        });
+    } else {
+        res.json({
+            status: '1',
+            data: '遭遇未知错误'
+        });
+    }
+});
+/*审核评论*/
+router.post('/update-comment-status', function (req, res, next) {
+
+});
+/*删除单条评论*/
+router.post('/delete-one-comment', function (req, res, next) {
+
+});
+
 module.exports = router;

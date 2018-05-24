@@ -39,13 +39,10 @@ var pageQuery = function (page, pageSize, Model, populate, queryParams, sortPara
         callback(err, $page);
     });
 };
-// var batchDeletd = function (data, Model, callback) {
-//    async.parallel({
-//
-//    },function (err,results) {
-//
-//    })
-// };
+var manyQuery = function (Model, param, callback) {
+    Model.find(param).exec(callback);
+};
 module.exports = {
-    pageQuery: pageQuery
+    pageQuery: pageQuery,
+    manyQuery: manyQuery
 };

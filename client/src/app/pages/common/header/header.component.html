@@ -1,0 +1,28 @@
+<nz-header class="header">
+    <div class="top-left logo" href="#">
+      <span>猫眼新闻</span>
+      <i class="anticon anticon-github"></i>
+     <!-- <img alt="猫眼新闻" src="../../../../assets/img/cat.png">-->
+    </div>
+    <div class="top-right nav">
+      <a href="#" routerLink="/login" *ngIf="showLogin">登录</a>
+      <span *ngIf="!showLogin" style="padding-right: 20px">{{name}}</span>
+      <nz-dropdown *ngIf="!showLogin">
+        <a nz-dropdown>
+           <span class="avatar" >
+            <img src="{{img}}" alt="'头像'">
+             <i class="anticon anticon-down"></i>
+           </span>
+        </a>
+        <ul nz-menu nzSelectable>
+          <li nz-menu-item>
+            <a routerLink="/profile">个人中心</a>
+          </li>
+          <li nz-menu-item>
+            <a (click)="loginOut()">退出</a>
+          </li>
+        </ul>
+      </nz-dropdown>
+
+    </div>
+</nz-header>

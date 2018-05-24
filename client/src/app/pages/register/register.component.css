@@ -1,0 +1,86 @@
+:host {
+  height: 100%;
+}
+.wrap {
+  /*  background: url("../../../assets/img/login.jpg")  no-repeat content-box fixed;*/
+  background-image: url("../../../assets/img/login.jpg");
+  background-origin: content-box;
+  background-size: cover;
+}
+.header {
+  height: 50px;
+  line-height: 50px;
+}
+.logo {
+  line-height: 60px;
+  height: 50px;
+}
+
+.logo span{
+  font-size: 15px;
+  font-weight: bold;
+  font-family: "Microsoft YaHei UI";
+}
+.logo i{
+  font-size: 35px;
+}
+.top-left {
+  float: left;
+}
+.top-right {
+  float: right;
+}
+.nav a{
+  padding-right: 20px;
+}
+.login-container {
+  position: absolute;
+  z-index: 100;
+  top: 180px;
+  right: 240px;
+  width: 360px;
+}
+.login-form {
+  padding-bottom: 26px;
+  border-radius: 6px;
+  background: #fff;
+}
+.title {
+  font-size: 18px;
+  line-height: 60px;
+  height: 60px;
+  margin-bottom: 20px;
+  text-align: center;
+  color: #fff;
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+  background: #508dff;
+}
+/*
+.error {
+  font-size: 12px;
+  height: 12px;
+  margin-bottom: 8px;
+  text-align: center;
+}
+.color-danger{
+  color: #f6625c;
+}
+
+
+.reset-password {
+  font-size: 12px;
+  height: 12px;
+  margin: 10px 30px;
+}
+.link{
+  cursor: pointer;
+  color: #49a9ee;
+}*/
+.login-btn {
+  font-size: 16px;
+  width: 300px;
+  height: 42px;
+  margin: 0 30px;
+}
+

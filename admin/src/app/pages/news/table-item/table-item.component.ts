@@ -8,6 +8,8 @@ import {Router} from '@angular/router';
   templateUrl: './table-item.component.html'
 })
 export class TableItemComponent implements OnInit {
+  // 全选
+  public checkedAll = false;
   constructor(public newsService: NewsService,
               private nzMessage: NzMessageService,
               private nzModal: NzModalService,
@@ -29,6 +31,20 @@ export class TableItemComponent implements OnInit {
       }
     });
   }
+  /**
+   * 全选影响单选
+   */
+  public toggleCheckedAll() {
+    this.newsService.newsList.forEach((ele) => (ele.checked = this.checkedAll));
+  }
+
+  /**
+   * 单选影响全选
+   */
+  public refreshStatus() {
+    this.checkedAll = this.newsService.newsList.every((ele) => ele.checked);
+  }
+
 
   /**
    * 删除新闻

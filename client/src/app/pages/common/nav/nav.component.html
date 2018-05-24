@@ -1,0 +1,17 @@
+
+  <ul nz-menu [nzMode]="'vertical'" style="width: 150px; text-align: center;background-color: #f4f5f6;">
+    <li  nz-menu-item [nzSelected]="homeService.selectedAll" (click)="getNewsList()">推荐</li>
+    <div *ngFor="let category of homeService.categoriesFont" >
+      <li nz-menu-item [nzSelected]="category.checked" (click)="getNewsList(category._id)">
+        <span>{{category.categoryName}}</span>
+      </li>
+    </div>
+    <li nz-submenu *ngIf="homeService.categoriesBack.length > 0">
+      <span title>更多</span>
+      <ul *ngFor="let category of homeService.categoriesBack" >
+        <li nz-menu-item [nzSelected]="category.checked" (click)="getNewsList(category._id)">{{category.categoryName}}</li>
+      </ul>
+    </li>
+  </ul>
+
+

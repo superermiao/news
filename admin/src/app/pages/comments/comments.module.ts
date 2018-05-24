@@ -6,6 +6,7 @@ import {NgModule} from '@angular/core';
 import {NgZorroAntdModule} from 'ng-zorro-antd';
 import {HttpClientModule} from '@angular/common/http';
 import { routes } from './comments.routes';
+import {CommentsService} from './comments.service';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,9 @@ import { routes } from './comments.routes';
     NgZorroAntdModule.forRoot(),
     HttpClientModule,
   ],
-  providers: []
+  providers: [
+    CommentsService
+  ]
 })
 export class CommentsModule {
   public static routes = routes;

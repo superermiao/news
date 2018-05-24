@@ -15,7 +15,8 @@ export class LoginComponent implements OnInit {
   public  isLoading = false;
   constructor(private loginService: LoginService,
               private route: Router,
-              private nzMessage: NzMessageService) {}
+              private nzMessage: NzMessageService,
+              private nzModal: NzModalService) {}
   public ngOnInit() {}
   public handleOk() {
     const params = {
@@ -30,8 +31,11 @@ export class LoginComponent implements OnInit {
         this.isLoading = false;
         this.isVisible = false;
       } else {
-        this.nzMessage.error(res.msg);
-        console.log(res.msg);
+        this.nzModal.warning({
+          title: '登录失败',
+          content: res.data
+        });
+        // console.log(res.msg);
         this.isLoading = false;
       }
     });

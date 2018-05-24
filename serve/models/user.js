@@ -12,23 +12,28 @@ const UserSchema = new Schema({
         required: true,
     },
     "userAvatar" :  {
-        type: String
+        type: String,
+        default: ''
     },
     "userSign" : {
         type: String,
         default: '这个人很懒，什么都没留下'
     },
     "userEmail" :  {
-        type: String
+        type: String,
+        default: ''
     },
     "userTel" :  {
-        type: String
+        type: String,
+        default: ''
     },
     "userRealName" :  {
-        type: String
+        type: String,
+        default: ''
     },
     "userAddress" :  {
-        type: String
+        type: String,
+        default: ''
     },
     "updateTime" :  {
         type: Date,
@@ -38,8 +43,15 @@ const UserSchema = new Schema({
         type: Date,
         default: Date.now
     },
-    "role" : {
+    "userAnswer": {
         type: String
+    },
+    "userQuestion": {
+        type: String
+    },
+    "role" : {
+        type: String,
+        default: '1'
     }
 });
 const UserModel = db.model('user',UserSchema);

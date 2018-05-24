@@ -1,0 +1,38 @@
+<nz-layout style="height: 100%">
+  <nz-header style="background: #fff">
+    <div class="top-left logo" href="#">
+      <span>猫眼新闻</span>
+      <i class="anticon anticon-github"></i>
+    </div>
+    <div class="top-right nav">
+      <span>还没有账号？</span>
+      <a routerLink="/register">立即注册</a>
+    </div>
+  </nz-header>
+  <nz-layout class="wrap">
+    <div class="login-container">
+      <div class="login-form">
+        <div class="title">登录账号</div>
+        <div class="form">
+          <div>
+            <label>用户名</label>
+            <input nz-input [(ngModel)]="userName" type="text">
+          </div>
+          <div>
+            <label>密码</label>
+            <input  nz-input [(ngModel)]="userPwd" type="password">
+          </div>
+       </div>
+        <div class="error">
+          <span *ngIf="loginService.error"></span>
+        </div>
+        <button nz-button [nzType]="'primary'" class="login-btn" (click)="login()">
+          登录
+        </button>
+        <div class="link reset-password" >
+          <a routerLink="/forget">忘记密码？</a>
+        </div>
+      </div>
+    </div>
+  </nz-layout>
+</nz-layout>

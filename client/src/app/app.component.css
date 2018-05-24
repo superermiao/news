@@ -1,0 +1,12 @@
+nz-root {
+  height:100%;
+}
+:host ::ng-deep nz-layout{
+  background-color: #ffffff !important;
+}
+.wrap{
+  height:100%;
+}
+nz-content {
+  height: 92%;
+}

@@ -1,0 +1,33 @@
+.header {
+  height: 50px;
+  line-height: 50px;
+  color: #fff;
+}
+.logo {
+  line-height: 60px;
+  height: 50px;
+}
+
+.logo span{
+  font-size: 15px;
+  font-weight: bold;
+  font-family: "Microsoft YaHei UI";
+}
+.logo i{
+  font-size: 35px;
+}
+.top-left {
+  float: left;
+}
+.top-right {
+  float: right;
+}
+.nav a{
+  padding-right: 20px;
+}
+.avatar img{
+  border-radius: 50%;
+  height: 30px;
+  width: 30px;
+}
+

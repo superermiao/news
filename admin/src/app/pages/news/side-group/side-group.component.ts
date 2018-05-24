@@ -15,9 +15,13 @@ export class SideGroupComponent implements OnInit {
    * 获取列表
    */
   public getNewsList(id?) {
-    this.newsService.optionParams = {
-      category_id: id
-    };
+    if (id) {
+      this.newsService.optionParams = {
+        category_id: id
+      };
+    } else {
+      this.newsService.optionParams = {};
+    }
     this.newsService.getNewsList();
   }
 

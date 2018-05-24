@@ -1,0 +1,82 @@
+<nz-layout class="wrap" style="background-color: #f8f8f8!important;">
+  <div class="main">
+    <div class="header">
+      <i class="anticon anticon-lock"></i><span>账号安全中心</span>
+    </div>
+    <div class="header-wrap">
+      <span>找回密码</span>
+    </div>
+    <div class="step-box">
+      <nz-steps [nzCurrent]="current">
+        <nz-step nzTitle="找回密码"></nz-step>
+        <nz-step nzTitle="设置新的密码"></nz-step>
+        <nz-step nzTitle="密码修改成功"></nz-step>
+      </nz-steps>
+      <div class="steps-content" *ngIf="current === 0">
+        <div>
+          <div nz-row class="form-item">
+            <div  nz-col [nzSm]="7" [nzXs]="7" class="necessary form-item-label">
+              <label class="form-item-label">登录账号： </label>
+            </div>
+            <div  nz-col [nzSm]="13" [nzXs]="13">
+              <input nz-input type="text" placeholder="请输入账号"  [(ngModel)]="name">
+            </div>
+          </div>
+          <div nz-row class="form-item">
+            <div  nz-col [nzSm]="7" [nzXs]="7" class="necessary form-item-label">
+              <label class="form-item-label">密保问题： </label>
+            </div>
+            <div  nz-col [nzSm]="13" [nzXs]="13">
+              <nz-select [(ngModel)]="userQuestion" [nzPlaceHolder]="'请选择密保问题'" style="width: 240px">
+                <nz-option *ngFor="let data of profileService.questionList" [nzLabel]="data.question" [nzValue]="data.id"></nz-option>
+              </nz-select>
+            </div>
+          </div>
+          <div nz-row class="form-item">
+            <div  nz-col [nzSm]="7" [nzXs]="7" class="necessary form-item-label" >
+              <label class="form-item-label">密保答案： </label>
+            </div>
+            <div  nz-col [nzSm]="13" [nzXs]="13">
+              <input nz-input type="text" placeholder="请输入对应的答案" [(ngModel)]="answer">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="steps-content" *ngIf="current === 1">
+        <div>
+          <div nz-row class="form-item">
+            <div  nz-col [nzSm]="7" [nzXs]="7" class="necessary form-item-label">
+              <label class="form-item-label">设置新密码： </label>
+            </div>
+            <div  nz-col [nzSm]="14" [nzXs]="14">
+              <input nz-input type="text" placeholder="输入新密码" [(ngModel)]="newPwd">
+            </div>
+          </div>
+          <div nz-row class="form-item">
+            <div  nz-col [nzSm]="7" [nzXs]="7" class="necessary form-item-label">
+              <label class="form-item-label">密保确认： </label>
+            </div>
+            <div  nz-col [nzSm]="14" [nzXs]="14">
+              <input nz-input type="text" placeholder="重复密码" [(ngModel)]="confirmPwd">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="steps-content" *ngIf="current === 2" style="text-align: center;padding-bottom: 20px;color:#52c41a;font-size: 16px ">
+        <i class="anticon anticon-check-circle"></i>修改成功，请登录
+      </div>
+      <div class="steps-action" style="text-align: center;">
+        <button nz-button nzType="default" (click)="pre()" *ngIf="current > 0">
+          <span>Previous</span>
+        </button>
+        <button nz-button nzType="default" (click)="next()" *ngIf="current < 2">
+          <span>Next</span>
+        </button>
+        <button nz-button nzType="primary" (click)="done()" *ngIf="current === 2">
+          <span>Done</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+</nz-layout>

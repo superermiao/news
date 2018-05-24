@@ -1,0 +1,66 @@
+:host {
+  height: 100%;
+  position: relative;
+}
+.wrap {
+  height: 100%;
+}
+
+.main{
+  height: 100%;
+  background: #fff;
+  width: 75%;
+  margin: 35px auto;
+}
+.header{
+  line-height: 50px;
+  font-size: 20px;
+  padding-left: 20px;
+  font-weight: bold;
+  margin-top: 20px;
+}
+.header-wrap {
+  background-color: rgba(3, 169, 244, 0.54);
+  line-height: 35px;
+  font-size: 16px;
+  margin-left: 20px;
+  margin-right: 20px;
+  color: #fff;
+  padding-left: 20px;
+  margin-top: 30px;
+}
+.step-box{
+  width: 60%;
+  margin: 0 auto;
+  padding-top: 75px;
+}
+.steps-content {
+  padding-top: 35px;
+}
+.step-action {
+  text-align: center;
+}
+.necessary::before {
+  display: inline-block;
+  margin-right: 4px;
+  content: "*";
+  font-family: SimSun;
+  line-height: 1;
+  font-size: 12px;
+  color: #f04134;
+}
+.form-item {
+  font-size: 12px;
+  margin-bottom: 24px;
+  color: rgba(0, 0, 0, 0.65);
+  vertical-align: top;
+}
+.form-item-label {
+  text-align: right;
+  vertical-align: middle;
+  line-height: 32px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding-right: 5px;
+}
